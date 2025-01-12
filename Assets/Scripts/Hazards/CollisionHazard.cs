@@ -10,7 +10,6 @@ public class CollisionHazard : MonoBehaviour
     void Awake()
     {
         bird = FindObjectOfType<BirdHealth>();
-        print(bird);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
