@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BirdMovement : MonoBehaviour
 {
-    readonly float TERMINAL_VELOCITY = -6;
+    readonly float TERMINAL_VELOCITY = -7;
     private GameObject birdBase;
     private Rigidbody2D rb2d;
 

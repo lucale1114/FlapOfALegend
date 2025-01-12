@@ -1,18 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionHazard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private BirdHealth bird;
+
+    void Awake()
     {
-        
+        bird = FindObjectOfType<BirdHealth>();
+        print(bird);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            bird.TakeDamage();
+        }
     }
 }
