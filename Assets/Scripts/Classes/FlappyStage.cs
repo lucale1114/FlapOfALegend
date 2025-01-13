@@ -9,4 +9,5 @@ public class FlappyStage : ScriptableObject
     public string levelName;
     public int chapter;
     public int length;
+    public GameObject cloud;
 }

@@ -20,7 +20,7 @@ public class BirdHealth : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
         }
         iFrame = false;
-        GetComponent<Collider2D>().enabled = true;
+        //GetComponent<Collider2D>().enabled = true;
     }
 
     public void TakeDamage()
@@ -32,7 +32,7 @@ public class BirdHealth : MonoBehaviour
 
         TakeHit?.Invoke();
         iFrame = true;
-        GetComponent<Collider2D>().enabled = false;
+        //GetComponent<Collider2D>().enabled = false;
 
         StartCoroutine(RemoveIFrame());
     }

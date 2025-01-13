@@ -16,6 +16,7 @@ public class BirdMovement : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 120;
         birdBase = transform.GetChild(0).Find("BirdBase").gameObject;
         rb2d = GetComponent<Rigidbody2D>();
     }
@@ -33,9 +34,23 @@ public class BirdMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
+        //Debug.Log((int)1.0f / Time.smoothDeltaTime + " FPS");
         Camera.main.transform.position = new Vector3(birdBase.transform.position.x + 1.2f, 0, -10);
+        if (Input.touchCount > 0)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                isFalling = false;
+                DoAFlap();
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
         if (rb2d.velocity.y <= TERMINAL_VELOCITY)
         {
             if (!isFalling)
@@ -48,13 +63,5 @@ public class BirdMovement : MonoBehaviour
         var vel = rb2d.velocity;
         vel.x = BirdSpeed;
         rb2d.velocity = vel;
-
-        if (Input.touchCount > 0) {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                isFalling = false;
-                DoAFlap();
-            }
-        }
     }
 }
