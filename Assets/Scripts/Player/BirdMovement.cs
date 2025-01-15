@@ -8,7 +8,9 @@ public class BirdMovement : MonoBehaviour
     readonly float TERMINAL_VELOCITY = -7;
     private GameObject birdBase;
     private Rigidbody2D rb2d;
+    private Animator wingAnimator;
 
+    public Sprite GlideSprite;
     public float FloatPower;
     public float BirdSpeed;
 
@@ -17,9 +19,11 @@ public class BirdMovement : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 120;
-        birdBase = transform.GetChild(0).Find("BirdBase").gameObject;
+        birdBase = transform.Find("BirdObject").gameObject;
         rb2d = GetComponent<Rigidbody2D>();
+        wingAnimator = birdBase.transform.Find("Wings").GetComponent<Animator>();
     }
+
     void Start()
     {
         
@@ -30,6 +34,7 @@ public class BirdMovement : MonoBehaviour
         birdBase.transform.DOKill();
         birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
         rb2d.velocity = Vector3.zero;
+        wingAnimator.Play("Wings1", 0, 0);
         rb2d.AddForce(new Vector3(0, FloatPower, 0));
     }
 
