@@ -51,7 +51,7 @@ public class PipeExit : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            trans.DOMove(trans.position + new Vector3(0.2f, 0, 0), 0.15f);
+            trans.DOMove(new Vector3(trans.position.x + 0.2f, 0, 0), 0.15f);
             yield return new WaitForSeconds(0.3f);
         }
         WinStage();
