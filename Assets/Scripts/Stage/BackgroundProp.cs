@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundProp : MonoBehaviour
 {
-    private SpriteRenderer renderer;
+    private SpriteRenderer render;
     private Rigidbody2D birdBody;
 
     public float ObjectMoveMultiplier;
@@ -15,14 +15,14 @@ public class BackgroundProp : MonoBehaviour
 
     void Awake()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        render = GetComponent<SpriteRenderer>();
         birdBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
     private void Start()
     {
         if (Variations.Length > 0)
         {
-            renderer.sprite = Variations[Random.Range(0,Variations.Length)];
+            render.sprite = Variations[Random.Range(0,Variations.Length)];
         }
         if (RandomSize)
         {
@@ -30,9 +30,9 @@ public class BackgroundProp : MonoBehaviour
         }
         if (RandomTransparency)
         {
-            var color = renderer.color;
+            var color = render.color;
             color.a = (float)Random.Range(30, 100)/100;
-            renderer.color = color;
+            render.color = color;
         }
         if (!Forced)
         {

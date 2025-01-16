@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ public class BirdHealth : MonoBehaviour
     IEnumerator RemoveIFrame()
     {
         SpriteRenderer sprite = transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-
+        transform.GetChild(0).DOFlip();
         for (int i = 0; i < 4; i++)
         {
             sprite.color = new Color(1, 1, 1, 0.5f);
