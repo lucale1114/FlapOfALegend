@@ -3,10 +3,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BirdHealth : MonoBehaviour
 {
     public event Action TakeHit;
+    public int Health;
+    public int Containers;
+    public Image[] HeartSprites;
+    public Sprite FullHeart;
+    public Sprite EmptyHeart;
+
     private bool iFrame;
 
     IEnumerator RemoveIFrame()
@@ -24,6 +31,45 @@ public class BirdHealth : MonoBehaviour
         //GetComponent<Collider2D>().enabled = true;
     }
 
+    private void Start()
+    {
+        DisplayHearts();
+    }
+
+    private void DisplayHearts()
+    {
+        for (int i = 0; i < HeartSprites.Length; i++)
+        {
+            if (i < Health)
+            {
+                HeartSprites[i].sprite = FullHeart;
+            }
+            else
+            {
+                HeartSprites[i].sprite = EmptyHeart;
+            }
+
+            if (i < Containers)
+            {
+                HeartSprites[i].enabled = true;
+            }
+            else
+            {
+                HeartSprites[i].enabled = false;
+            }
+        }
+    }
+
+    public bool AddHealth(int health) {
+        return true;
+    }
+
+    public bool AddHeartContainer(int health)
+    {
+        return true;
+    }
+
+
     public void TakeDamage()
     {
         if (iFrame)
@@ -34,7 +80,8 @@ public class BirdHealth : MonoBehaviour
         TakeHit?.Invoke();
         iFrame = true;
         //GetComponent<Collider2D>().enabled = false;
-
+        Health--;
+        DisplayHearts();
         StartCoroutine(RemoveIFrame());
     }
 }
