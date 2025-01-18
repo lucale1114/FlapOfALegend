@@ -13,7 +13,7 @@ public class BirdMovement : MonoBehaviour
     public Sprite GlideSprite;
     public float FloatPower;
     public float BirdSpeed;
-
+    public bool Sleeping;
     private bool isFalling;
 
     private void Awake()
@@ -43,10 +43,9 @@ public class BirdMovement : MonoBehaviour
     private void Update()
     {
         //Debug.Log((int)1.0f / Time.smoothDeltaTime + " FPS");
-        Camera.main.transform.position = new Vector3(birdBase.transform.position.x + 1.2f, 0, -10);
         if (Input.touchCount > 0)
         {
-            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.GetTouch(0).phase == TouchPhase.Began && !Sleeping)
             {
                 isFalling = false;
                 DoAFlap();
@@ -56,6 +55,11 @@ public class BirdMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Sleeping)
+        {
+            return;
+        }
+        Camera.main.transform.position = new Vector3(birdBase.transform.position.x + 1.2f, 0, -10);
         if (rb2d.velocity.y <= TERMINAL_VELOCITY)
         {
             if (!isFalling)

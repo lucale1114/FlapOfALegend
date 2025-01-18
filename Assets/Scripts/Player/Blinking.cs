@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Blinking : MonoBehaviour
 {
@@ -8,8 +9,10 @@ public class Blinking : MonoBehaviour
     private BirdHealth birdHealth;
     private SpriteRenderer render;
     private bool hurt;
+    private bool sleeping;
 
     public Sprite BlinkSprite;
+    public Sprite SleepSprite;
 
     void Awake()
     {
@@ -17,6 +20,12 @@ public class Blinking : MonoBehaviour
         blinkAnimator = GetComponent<Animator>();
         InvokeRepeating("BlinkAuto", 1, 3);
         render = GetComponent<SpriteRenderer>();
+        if (SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            blinkAnimator.enabled = false;
+            sleeping = true;
+            render.sprite = SleepSprite;
+        }
     }
 
     private void Start()
@@ -32,7 +41,7 @@ public class Blinking : MonoBehaviour
 
     void BlinkAuto()
     {
-        if (!hurt)
+        if (!hurt && !sleeping)
         {
             blinkAnimator.Play("Blink1", 0, 0);
         }
