@@ -9,10 +9,13 @@ public class Blinking : MonoBehaviour
     private BirdHealth birdHealth;
     private SpriteRenderer render;
     private bool hurt;
-    private bool sleeping;
+    private ParticleSystem sleepParticle;
 
+    public bool Sleeping;
     public Sprite BlinkSprite;
+    public Sprite OpenEyesSprite;
     public Sprite SleepSprite;
+    public bool CanStart;
 
     void Awake()
     {
@@ -20,12 +23,7 @@ public class Blinking : MonoBehaviour
         blinkAnimator = GetComponent<Animator>();
         InvokeRepeating("BlinkAuto", 1, 3);
         render = GetComponent<SpriteRenderer>();
-        if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            blinkAnimator.enabled = false;
-            sleeping = true;
-            render.sprite = SleepSprite;
-        }
+        sleepParticle = GameObject.Find("SleepParticles").GetComponent<ParticleSystem>();
     }
 
     private void Start()
@@ -37,11 +35,36 @@ public class Blinking : MonoBehaviour
             render.sprite = BlinkSprite;
             Invoke("UnHurt", 0.45f);
         };
+        if (Sleeping)
+        {
+            blinkAnimator.enabled = false;
+            render.sprite = SleepSprite;
+        }
+    }
+
+    public IEnumerator WakeUp()
+    {
+        sleepParticle.emissionRate = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            render.sprite = OpenEyesSprite;
+            yield return new WaitForSeconds(0.1f);
+            render.sprite = SleepSprite;
+            yield return new WaitForSeconds(0.1f);
+        }
+        render.sprite = OpenEyesSprite;
+        CanStart = true;
+        blinkAnimator.enabled = true;
+    }
+
+    void FlapAgain()
+    {
+
     }
 
     void BlinkAuto()
     {
-        if (!hurt && !sleeping)
+        if (!hurt && !Sleeping)
         {
             blinkAnimator.Play("Blink1", 0, 0);
         }
