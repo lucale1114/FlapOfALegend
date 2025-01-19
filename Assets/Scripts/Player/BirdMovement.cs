@@ -20,6 +20,8 @@ public class BirdMovement : MonoBehaviour
     private Rigidbody2D rb2d;
     private Animator wingAnimator;
     private Blinking blinking;
+    private BirdHealth birdHealth;
+    private bool died;
 
 
     private void Awake()
@@ -28,6 +30,7 @@ public class BirdMovement : MonoBehaviour
         birdBase = transform.Find("BirdObject").gameObject;
         rb2d = GetComponent<Rigidbody2D>();
         blinking = FindObjectOfType<Blinking>();
+        birdHealth = FindObjectOfType<BirdHealth>();
         wingAnimator = birdBase.transform.Find("Wings").GetComponent<Animator>();
     }
 
@@ -37,10 +40,21 @@ public class BirdMovement : MonoBehaviour
         {
             rb2d.bodyType = RigidbodyType2D.Static;
         }
+        birdHealth.Died += () =>
+        {
+            BirdSpeed = 0;
+            died = true;
+            birdBase.transform.DORotate(new Vector3(5, 0, -90), 0.5f);
+
+        };
     }
 
     private void DoAFlap()
     {
+        if (died)
+        {
+            return;
+        }
         birdBase.transform.DOKill();
         birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
         rb2d.velocity = Vector3.zero;

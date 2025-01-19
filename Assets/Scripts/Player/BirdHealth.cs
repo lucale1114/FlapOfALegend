@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class BirdHealth : MonoBehaviour
 {
     public event Action TakeHit;
+    public event Action Died;
     public int Health;
     public int Containers;
     public Image[] HeartSprites;
@@ -68,20 +69,24 @@ public class BirdHealth : MonoBehaviour
     {
         return true;
     }
-
-
     public void TakeDamage()
     {
-        if (iFrame)
+        if (iFrame && Health > 0)
         {
             return;
         }
 
         TakeHit?.Invoke();
-        iFrame = true;
         //GetComponent<Collider2D>().enabled = false;
         Health--;
         DisplayHearts();
+
+        if (Health == 0)
+        {
+            Died?.Invoke();
+            return;
+        }
         StartCoroutine(RemoveIFrame());
+        iFrame = true;
     }
 }
