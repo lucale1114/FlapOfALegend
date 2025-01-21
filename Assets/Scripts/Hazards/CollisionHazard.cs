@@ -6,6 +6,8 @@ using UnityEngine;
 public class CollisionHazard : MonoBehaviour
 {
     private BirdHealth bird;
+    [SerializeField]
+    private AudioClip pipeHitSound;
 
     void Awake()
     {
@@ -16,6 +18,7 @@ public class CollisionHazard : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && bird.CanBeHit())
         {
+            AudioManager.PlaySound(pipeHitSound, 1, 1);
             bird.TakeDamage();
         }
     }

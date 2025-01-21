@@ -22,7 +22,9 @@ public class BirdMovement : MonoBehaviour
     private Blinking blinking;
     private BirdHealth birdHealth;
     private bool died;
-
+    private bool inStart;
+    [SerializeField]
+    private AudioClip flapSound;
 
     private void Awake()
     {
@@ -40,13 +42,15 @@ public class BirdMovement : MonoBehaviour
         {
             rb2d.bodyType = RigidbodyType2D.Static;
         }
-        birdHealth.Died += () =>
-        {
-            BirdSpeed = 0;
-            died = true;
-            birdBase.transform.DORotate(new Vector3(5, 0, -90), 0.5f);
+        birdHealth.Died += () => Death();
+    }
 
-        };
+    private void Death()
+    {
+        BirdSpeed = 0;
+        died = true;
+        birdBase.transform.DORotate(new Vector3(5, 0, -90), 0.5f);
+        rb2d.AddForce(new Vector3(0, 20, 0));
     }
 
     private void DoAFlap()
@@ -59,6 +63,7 @@ public class BirdMovement : MonoBehaviour
         birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
         rb2d.velocity = Vector3.zero;
         wingAnimator.Play("Wings1", 0, 0);
+        AudioManager.PlaySound(flapSound, 1, 1);
         rb2d.AddForce(new Vector3(0, FloatPower, 0));
     }
 
@@ -81,10 +86,11 @@ public class BirdMovement : MonoBehaviour
                     blinking.Sleeping = false;
                     WokeUp?.Invoke();
                 }
-                else
+                else if (!inStart)
                 {
+                    inStart = true;
                     StartCoroutine(blinking.WakeUp());
-                    Camera.main.transform.DOMove(new Vector3(birdBase.transform.position.x + 1.2f, 0, -10), 1f);
+                    Camera.main.transform.parent.DOMove(new Vector3(birdBase.transform.position.x + 1.2f, 0, -10), 1f);
                 }
             }
             if (Input.GetTouch(0).phase == TouchPhase.Began && !Sleeping)
@@ -101,7 +107,7 @@ public class BirdMovement : MonoBehaviour
         {
             return;
         }
-        Camera.main.transform.position = new Vector3(birdBase.transform.position.x + 1.2f, 0, -10);
+        Camera.main.transform.parent.position = new Vector3(birdBase.transform.position.x + 1.2f, 0, -10);
         if (rb2d.velocity.y <= TERMINAL_VELOCITY)
         {
             if (!isFalling)

@@ -9,11 +9,9 @@ public class BirdHealth : MonoBehaviour
 {
     public event Action TakeHit;
     public event Action Died;
+
     public int Health;
     public int Containers;
-    public Image[] HeartSprites;
-    public Sprite FullHeart;
-    public Sprite EmptyHeart;
 
     private bool iFrame;
 
@@ -32,36 +30,15 @@ public class BirdHealth : MonoBehaviour
         //GetComponent<Collider2D>().enabled = true;
     }
 
-    private void Start()
+    IEnumerator DiedFunction()
     {
-        DisplayHearts();
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(0.5f);
+        DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, 3).SetUpdate(true);
     }
 
-    private void DisplayHearts()
+    public bool AddHealth(int health)
     {
-        for (int i = 0; i < HeartSprites.Length; i++)
-        {
-            if (i < Health)
-            {
-                HeartSprites[i].sprite = FullHeart;
-            }
-            else
-            {
-                HeartSprites[i].sprite = EmptyHeart;
-            }
-
-            if (i < Containers)
-            {
-                HeartSprites[i].enabled = true;
-            }
-            else
-            {
-                HeartSprites[i].enabled = false;
-            }
-        }
-    }
-
-    public bool AddHealth(int health) {
         return true;
     }
 
@@ -85,14 +62,15 @@ public class BirdHealth : MonoBehaviour
             return;
         }
 
-        TakeHit?.Invoke();
         //GetComponent<Collider2D>().enabled = false;
         Health--;
-        DisplayHearts();
+        TakeHit?.Invoke();
+        StartCoroutine(ScreenShake.ShakeScreen(1, 1.1f));
 
         if (Health == 0)
         {
             Died?.Invoke();
+            StartCoroutine(DiedFunction());
             return;
         }
         StartCoroutine(RemoveIFrame());

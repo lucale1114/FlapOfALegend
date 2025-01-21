@@ -10,11 +10,14 @@ public class Blinking : MonoBehaviour
     private SpriteRenderer render;
     private bool hurt;
     private ParticleSystem sleepParticle;
+    private SpriteRenderer eyes;
+    private bool dead;
 
     public bool Sleeping;
     public Sprite BlinkSprite;
     public Sprite OpenEyesSprite;
     public Sprite SleepSprite;
+    public Sprite DeadEyeSprite;
     public bool CanStart;
 
     void Awake()
@@ -22,24 +25,38 @@ public class Blinking : MonoBehaviour
         birdHealth = FindObjectOfType<BirdHealth>();
         blinkAnimator = GetComponent<Animator>();
         InvokeRepeating("BlinkAuto", 1, 3);
+        eyes = GameObject.Find("Eyes").GetComponent<SpriteRenderer>();
         render = GetComponent<SpriteRenderer>();
         sleepParticle = GameObject.Find("SleepParticles").GetComponent<ParticleSystem>();
     }
 
     private void Start()
     {
-        birdHealth.TakeHit += () =>
+        birdHealth.TakeHit += () => TakeAHit();
+        birdHealth.Died += () =>
         {
-            hurt = true;
+            dead = true;
             blinkAnimator.enabled = false;
-            render.sprite = BlinkSprite;
-            Invoke("UnHurt", 0.45f);
+            render.sprite = OpenEyesSprite;
+            eyes.sprite = DeadEyeSprite;
         };
         if (Sleeping)
         {
             blinkAnimator.enabled = false;
             render.sprite = SleepSprite;
         }
+    }
+
+    private void TakeAHit()
+    {
+        if (dead)
+        {
+            return;
+        }
+        hurt = true;
+        blinkAnimator.enabled = false;
+        render.sprite = BlinkSprite;
+        Invoke("UnHurt", 0.45f);
     }
 
     public IEnumerator WakeUp()
@@ -53,13 +70,9 @@ public class Blinking : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
         render.sprite = OpenEyesSprite;
-        CanStart = true;
         blinkAnimator.enabled = true;
-    }
-
-    void FlapAgain()
-    {
-
+        yield return new WaitForSeconds(0.8f);
+        CanStart = true;
     }
 
     void BlinkAuto()
@@ -72,8 +85,11 @@ public class Blinking : MonoBehaviour
 
     void UnHurt()
     {
-        blinkAnimator.enabled = true;
-        hurt = false;
+        if (!dead)
+        {
+            blinkAnimator.enabled = true;
+            hurt = false;
+        }
     }
 
 }

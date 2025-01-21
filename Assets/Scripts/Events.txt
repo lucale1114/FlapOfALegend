@@ -1,0 +1,4 @@
+BirdMovement -> WokeUp
+BirdHealth -> TakeHit
+BirdHealth -> Died
+PipeExit -> WinState

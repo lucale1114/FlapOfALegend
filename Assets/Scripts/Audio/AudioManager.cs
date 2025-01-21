@@ -19,7 +19,6 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         bm.WokeUp += () => {
-            print("aro");
             StartCoroutine(FadeOutAndPlayNew());
         };
     }
@@ -31,5 +30,16 @@ public class AudioManager : MonoBehaviour
         source.clip = LevelMusic;
         source.Play();
         source.DOFade(1, 1);
+    }
+
+    public static void PlaySound(AudioClip sound, float volume, float pitch)
+    {
+        GameObject soundObject = Instantiate(new GameObject());
+        AudioSource source = soundObject.AddComponent<AudioSource>();
+        source.clip = sound;
+        source.volume = volume;
+        source.pitch = pitch;
+        source.Play();
+        Destroy(soundObject, sound.length + 0.5f);
     }
 }
