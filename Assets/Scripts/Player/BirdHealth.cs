@@ -69,6 +69,15 @@ public class BirdHealth : MonoBehaviour
     {
         return true;
     }
+
+    public bool CanBeHit()
+    {
+        if (Health == 0 && iFrame) {
+            return false;
+        }
+        return true;
+    }
+
     public void TakeDamage()
     {
         if (iFrame && Health > 0)
