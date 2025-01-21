@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe4ac5e5f4bfb842994bca91114f7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallBreakSound: {fileID: 8300000, guid: 6a3c839f706836b4aa6df2acf1a1c8ed, type: 3}
+  pipeEnterNoise: {fileID: 8300000, guid: 6a3c839f706836b4aa6df2acf1a1c8ed, type: 3}
 --- !u!61 &2316928098050987539
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5197,6 +5199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168bf5e3f58673f41ac2c3051fd8767e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipeHitSounds: []
 --- !u!1 &5546862124904897847
 GameObject:
   m_ObjectHideFlags: 0

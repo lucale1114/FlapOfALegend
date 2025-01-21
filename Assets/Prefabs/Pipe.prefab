@@ -117,7 +117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 168bf5e3f58673f41ac2c3051fd8767e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pipeHitSound: {fileID: 8300000, guid: 9319906250476bc4b986a4fe62978009, type: 3}
+  pipeHitSounds:
+  - {fileID: 8300000, guid: 9319906250476bc4b986a4fe62978009, type: 3}
+  - {fileID: 8300000, guid: 09e6c7c510475a14ab3f97b051f551f1, type: 3}
+  - {fileID: 8300000, guid: 88448e98aa60d1f4697b793a831591ab, type: 3}
 --- !u!61 &5887004221360618870
 BoxCollider2D:
   m_ObjectHideFlags: 0

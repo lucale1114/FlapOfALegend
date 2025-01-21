@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 public class BirdHealth : MonoBehaviour
@@ -15,17 +16,27 @@ public class BirdHealth : MonoBehaviour
 
     private bool iFrame;
 
-    IEnumerator RemoveIFrame()
+    IEnumerator FlashSprite(SpriteRenderer sprite)
     {
-        SpriteRenderer sprite = transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>();
-        transform.GetChild(0).DOFlip();
+        float startFade = 0.6f;
         for (int i = 0; i < 4; i++)
         {
             sprite.color = new Color(1, 1, 1, 0.5f);
             yield return new WaitForSeconds(0.2f);
-            sprite.color = Color.white;
+            startFade += 0.1f;
+            sprite.color = new Color(1, 1, 1, startFade);
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    IEnumerator RemoveIFrame()
+    {
+        foreach (Transform item in transform.GetChild(0))
+        {
+            SpriteRenderer renderer = item.GetComponent<SpriteRenderer>();
+            StartCoroutine(FlashSprite(renderer));
+        }
+        yield return new WaitForSeconds(1.7f);
         iFrame = false;
         //GetComponent<Collider2D>().enabled = true;
     }
@@ -49,7 +60,7 @@ public class BirdHealth : MonoBehaviour
 
     public bool CanBeHit()
     {
-        if (Health == 0 && iFrame) {
+        if (Health == 0 || iFrame) {
             return false;
         }
         return true;

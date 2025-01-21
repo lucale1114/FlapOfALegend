@@ -10,6 +10,10 @@ public class PipeExit : MonoBehaviour
     public event Action WinState;
     private bool hasWon;
     private ParticleSystem brickbreak;
+    [SerializeField]
+    private AudioClip wallBreakSound;
+    [SerializeField]
+    private AudioClip pipeEnterNoise;
 
     private void Awake()
     {
@@ -52,6 +56,7 @@ public class PipeExit : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             trans.DOMove(new Vector3(trans.position.x + 0.2f, 0, 0), 0.15f);
+            AudioManager.PlaySound(pipeEnterNoise, 1, 1);
             yield return new WaitForSeconds(0.3f);
         }
         WinStage();
@@ -65,6 +70,7 @@ public class PipeExit : MonoBehaviour
     void LaunchIn(Transform trans)
     {
         trans.DOMove(trans.position + new Vector3(3f, 0, 0), 1f);
+        AudioManager.PlaySound(wallBreakSound, 2, 1);
         var bPos = brickbreak.transform.position;
         bPos.y = trans.position.y;
         brickbreak.transform.position = bPos;

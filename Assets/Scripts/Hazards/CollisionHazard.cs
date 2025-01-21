@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +6,7 @@ public class CollisionHazard : MonoBehaviour
 {
     private BirdHealth bird;
     [SerializeField]
-    private AudioClip pipeHitSound;
+    private AudioClip[] pipeHitSounds; 
 
     void Awake()
     {
@@ -18,7 +17,7 @@ public class CollisionHazard : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && bird.CanBeHit())
         {
-            AudioManager.PlaySound(pipeHitSound, 1, 1);
+            AudioManager.PlaySound(pipeHitSounds[Random.Range(0,pipeHitSounds.Length)], 1, Random.Range(0.8f,1.2f));
             bird.TakeDamage();
         }
     }
