@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "238052384870",
+    "firebase_url": "https://flapofalegend-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "flapofalegend",
+    "storage_bucket": "flapofalegend.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238052384870:android:9f45ca6db7db25852e4da7",
+        "android_client_info": {
+          "package_name": "com.n00bgameing.flapofalegend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkrtEor7i1SwnfIyqI4Fg0MgUgxzQXfBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
