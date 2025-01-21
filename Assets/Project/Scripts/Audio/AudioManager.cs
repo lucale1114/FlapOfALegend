@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource source;
+    private static AudioSource source;
     private BirdMovement bm;
 
     public AudioClip LevelMusic;
@@ -30,6 +30,10 @@ public class AudioManager : MonoBehaviour
         source.clip = LevelMusic;
         source.Play();
         source.DOFade(1, 1);
+    }
+
+    public static void StopMusic() {
+        source.Stop();
     }
 
     public static void PlaySound(AudioClip sound, float volume, float pitch)

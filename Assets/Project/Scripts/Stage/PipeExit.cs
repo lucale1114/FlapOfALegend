@@ -69,8 +69,10 @@ public class PipeExit : MonoBehaviour
 
     void LaunchIn(Transform trans)
     {
+        FindObjectOfType<BirdHealth>().TakeDamage();
         trans.DOMove(trans.position + new Vector3(3f, 0, 0), 1f);
         AudioManager.PlaySound(wallBreakSound, 2, 1);
+        StartCoroutine(ScreenShake.ShakeScreen(3f, 1.5f));
         var bPos = brickbreak.transform.position;
         bPos.y = trans.position.y;
         brickbreak.transform.position = bPos;
