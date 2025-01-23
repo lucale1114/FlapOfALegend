@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class BirdMovement : MonoBehaviour
@@ -74,6 +75,11 @@ public class BirdMovement : MonoBehaviour
         //Debug.Log((int)1.0f / Time.smoothDeltaTime + " FPS");
         if (Input.touchCount > 0)
         {
+            if (EventSystem.current.currentSelectedGameObject != null   )
+            {
+                print("stop");
+                return;
+            }
             if (Sleeping)
             {
                 if (blinking.CanStart)

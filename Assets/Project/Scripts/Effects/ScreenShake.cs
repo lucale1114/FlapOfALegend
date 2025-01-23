@@ -12,7 +12,6 @@ public class ScreenShake : MonoBehaviour
         for (float i = 0; i < duration; i += 0.1f)
         {
             yield return new WaitForSecondsRealtime(0.01f);
-            print((float)Random.Range(50, 100) / 100 * newIntensity);
             Camera.main.transform.DOLocalMove(new Vector3(0, 0,-10) + new Vector3((float)Random.Range(-100, 100) / 1000 * newIntensity, (float)Random.Range(-100, 100) / 1000 * newIntensity, 0), 0.01f);
             newIntensity = intensity * i / duration;
         }
