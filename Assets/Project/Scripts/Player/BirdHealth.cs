@@ -82,9 +82,11 @@ public class BirdHealth : MonoBehaviour
         {
             Died?.Invoke();
             StartCoroutine(DiedFunction());
+            GameInterface.FlashImage(0.8f, 1f);
             AudioManager.StopMusic();
             return;
         }
+        GameInterface.FlashImage(0.8f, 0.2f);
         StartCoroutine(RemoveIFrame());
         iFrame = true;
     }

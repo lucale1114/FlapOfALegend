@@ -20,8 +20,8 @@ public class BirdMovement : MonoBehaviour
     private GameObject birdBase;
     private Rigidbody2D rb2d;
     private Animator wingAnimator;
-    private Blinking blinking;
     private BirdHealth birdHealth;
+    private Blinking blinking;
     private bool died;
     private bool inStart;
     [SerializeField]

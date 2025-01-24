@@ -19,6 +19,7 @@ public class PipeExit : MonoBehaviour
     {
         brickbreak = transform.parent.Find("Brickbreak").GetComponent<ParticleSystem>();
     }
+
     GameObject VictoryTouch(Collider2D collision)
     {
         GameObject bird = collision.gameObject;
@@ -27,7 +28,6 @@ public class PipeExit : MonoBehaviour
         bird.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         hasWon = true;
         WinState?.Invoke();
-        print("here");
         return bird;
     }
 
@@ -53,13 +53,13 @@ public class PipeExit : MonoBehaviour
 
     IEnumerator MoveIn(Transform trans)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 3; i++)
         {
             trans.DOMove(new Vector3(trans.position.x + 0.2f, 0, 0), 0.15f);
             AudioManager.PlaySound(pipeEnterNoise, 1, 1);
             yield return new WaitForSeconds(0.3f);
         }
-        WinStage();
+        Invoke("WinStage", 3.5f);
     }
 
     void WinStage()
@@ -77,7 +77,7 @@ public class PipeExit : MonoBehaviour
         bPos.y = trans.position.y;
         brickbreak.transform.position = bPos;
         StartCoroutine(Emit());
-        Invoke("WinStage", 3);
+        Invoke("WinStage", 4);
     }
 
     IEnumerator Emit()

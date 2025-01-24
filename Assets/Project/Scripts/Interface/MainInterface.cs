@@ -9,11 +9,13 @@ public class MainInterface : MonoBehaviour
 {
     private TextMeshProUGUI winCounter;
     private Transform healthBar;
-    private BirdHealth health;
     [SerializeField]
     private Transform loginField;
     [SerializeField]
     private Transform registerField;
+    [SerializeField]
+    private Transform trans;
+
     private Vector3 loginFieldPos;
     private Vector3 loginFieldPosBack;
 
@@ -22,15 +24,10 @@ public class MainInterface : MonoBehaviour
     private Transform buttonRegister;
     private Transform buttonSign;
 
-    public Image[] HeartSprites;
-    public Sprite FullHeart;
-    public Sprite EmptyHeart;
-
     private void Awake()
     {
         winCounter = GameObject.Find("WinCounter").GetComponent<TextMeshProUGUI>();
         healthBar = GameObject.Find("Lives").transform;
-        health = FindObjectOfType<BirdHealth>();
         fbLogin = FindObjectOfType<FirebaseLogin>();
         buttonLogin = GameObject.Find("ButtonLogin").transform;
         buttonRegister = GameObject.Find("ButtonRegister").transform;
@@ -53,11 +50,7 @@ public class MainInterface : MonoBehaviour
             buttonSign.DOMove(buttonSign.position + new Vector3(0, 500, 0), 2);
             healthBar.GetComponent<CanvasGroup>().DOFade(1, 2);
         };
-        DisplayHearts();
-        health.TakeHit += () =>
-        {
-            DisplayHearts();
-        };
+        
         fbLogin.LoggedIn += () => {
             Login();
         };
@@ -96,30 +89,6 @@ public class MainInterface : MonoBehaviour
         else
         {
             field.DOMove(loginFieldPosBack, 1).OnComplete(delegate { field.gameObject.SetActive(false); });
-        }
-    }
-
-    private void DisplayHearts()
-    {
-        for (int i = 0; i < HeartSprites.Length; i++)
-        {
-            if (i < health.Health)
-            {
-                HeartSprites[i].sprite = FullHeart;
-            }
-            else
-            {
-                HeartSprites[i].sprite = EmptyHeart;
-            }
-
-            if (i < health.Containers)
-            {
-                HeartSprites[i].enabled = true;
-            }
-            else
-            {
-                HeartSprites[i].enabled = false;
-            }
         }
     }
 }
