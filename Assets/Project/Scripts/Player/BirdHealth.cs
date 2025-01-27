@@ -29,6 +29,11 @@ public class BirdHealth : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        Health = GameVariables.Instance.GetHealth();
+    }
+
     IEnumerator RemoveIFrame()
     {
         foreach (Transform item in transform.GetChild(0))

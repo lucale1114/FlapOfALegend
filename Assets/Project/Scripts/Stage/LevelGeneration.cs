@@ -13,6 +13,8 @@ public class LevelGeneration : MonoBehaviour
     private GameObject bird;
     [SerializeField]
     private AudioClip pipeSound;
+    [SerializeField]
+    private bool IsMenu;
 
     public FlappyStage ChosenStage;
 
@@ -27,10 +29,6 @@ public class LevelGeneration : MonoBehaviour
         pointer = levelObject.transform.Find("Pointer");
         bgPointer = levelObject.transform.Find("BackgroundPointer");
         bird = GameObject.Find("Bird");
-        sky = GameObject.Find("Sky").GetComponent<SpriteRenderer>();
-        ground = GameObject.Find("Ground").GetComponent<SpriteRenderer>();
-        wall = GameObject.Find("Brickwall11").GetComponent<SpriteRenderer>();
-        wallEnd = GameObject.Find("Brickwall22").GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -59,15 +57,25 @@ public class LevelGeneration : MonoBehaviour
 
     void DecorateLevel()
     {
+        sky = GameObject.Find("Sky").GetComponent<SpriteRenderer>();
+        ground = GameObject.Find("Ground").GetComponent<SpriteRenderer>();
+        wall = GameObject.Find("Brickwall11").GetComponent<SpriteRenderer>();
+        wallEnd = GameObject.Find("Brickwall22").GetComponent<SpriteRenderer>();
+
+        GameObject[] pipes = GameObject.FindGameObjectsWithTag("Pipe");
+        foreach (var pipe in pipes)
+        {
+            pipe.GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+        }
+
         sky.sprite = ChosenStage.sky;
         ground.sprite = ChosenStage.ground;
         wall.sprite = ChosenStage.wallSprite;
         wallEnd.sprite = ChosenStage.wallEndSprite;
 
-        foreach (var item in ChosenStage.backgroundElements)
-        {
-            GameObject newObj = Instantiate(item);
-        }
+
+        GameObject.Find("Brickwall").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallSprite;
+        GameObject.Find("Brickwall2").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallEndSprite;
     }
 
     void StartLevel()
@@ -78,7 +86,7 @@ public class LevelGeneration : MonoBehaviour
 
     void GenerateLevel()
     {
-        DecorateLevel();
+        
         for (int i = 0; i < ChosenStage.length; i++)
         {
             FlappySegment segmentToCreate = ChosenStage.segments[Random.Range(0, ChosenStage.segments.Length)];
@@ -88,18 +96,14 @@ public class LevelGeneration : MonoBehaviour
         pointer.position += new Vector3(10, 0, 0);
         CreateBackgroundProps();
 
-        GameObject[] pipes = GameObject.FindGameObjectsWithTag("Pipe");
-        foreach (var pipe in pipes)
-        {
-            pipe.GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
-        }
-
         GameObject newEnd = Instantiate(endPipe, new Vector3(pointer.position.x, 0, 0), endPipe.transform.rotation);
         newEnd.transform.SetParent(levelObject.transform);
         newEnd.transform.localPosition = new Vector3(pointer.position.x, 0, 0);
 
-        GameObject.Find("Brickwall").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallSprite;
-        GameObject.Find("Brickwall2").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallEndSprite;
+        if (!IsMenu)
+        {
+            DecorateLevel();
+        }
     }
 
     void CreateSegment(FlappySegment segment)
@@ -113,6 +117,7 @@ public class LevelGeneration : MonoBehaviour
         }
         pointer.position += new Vector3(segment.distanceRight, 0, 0);
     }
+
     void CreateBackgroundProps()
     {
         if (ChosenStage.cloud != null)
@@ -120,6 +125,12 @@ public class LevelGeneration : MonoBehaviour
             PaintClouds(ChosenStage.cloud);
             bgPointer.position = bgPointerPos;
         }
+
+        foreach (var item in ChosenStage.backgroundElements)
+        {
+            GameObject newObj = Instantiate(item);
+        }
+    
     }
 
     void PaintClouds(GameObject cloud)

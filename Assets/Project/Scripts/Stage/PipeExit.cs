@@ -64,6 +64,7 @@ public class PipeExit : MonoBehaviour
 
     void WinStage()
     {
+        GameVariables.Instance.SetHealth(FindObjectOfType<BirdHealth>().Health);
         SceneManager.LoadScene(2);
     }
 

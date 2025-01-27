@@ -531,6 +531,7 @@ GameObject:
   - component: {fileID: 172211277}
   - component: {fileID: 172211279}
   - component: {fileID: 172211280}
+  - component: {fileID: 172211281}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -590,7 +591,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPipe: {fileID: 1290501521310803748, guid: fdf22621cf01d6d4791df95a60249676, type: 3}
+  pipeSound: {fileID: 0}
+  IsMenu: 1
   ChosenStage: {fileID: 11400000, guid: e52af038c32ecb345afd0389f8badafa, type: 2}
+--- !u!114 &172211281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172211276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4240b69c5937bcc4c9b5253c0450abfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222988504
 GameObject:
   m_ObjectHideFlags: 0
@@ -4837,6 +4852,7 @@ MonoBehaviour:
   FullHeart: {fileID: 21300000, guid: 95a375884688d6f438c1d1cfcec9f0fa, type: 3}
   EmptyHeart: {fileID: 21300000, guid: 7bc5bf8990e05d543b255b1877a7527d, type: 3}
   trans: {fileID: 1437781136}
+  isInGame: 0
 --- !u!1 &1309835605
 GameObject:
   m_ObjectHideFlags: 0
@@ -12729,7 +12745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9fdc75d20b2604f9d6b25c963d79b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelMusic: {fileID: 8300000, guid: 61262c0c1a2854b4ab630b52ea8c5de2, type: 3}
 --- !u!1 &2023678784
 GameObject:
   m_ObjectHideFlags: 0
