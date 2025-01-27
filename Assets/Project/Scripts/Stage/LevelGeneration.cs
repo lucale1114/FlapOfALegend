@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class LevelGeneration : MonoBehaviour
 {
     private GameObject levelObject;
@@ -10,24 +10,75 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField]
     private GameObject endPipe;
     private Vector3 bgPointerPos;
+    private GameObject bird;
+    [SerializeField]
+    private AudioClip pipeSound;
 
     public FlappyStage ChosenStage;
 
+    private SpriteRenderer ground;
+    private SpriteRenderer sky;
+    private SpriteRenderer wall;
+    private SpriteRenderer wallEnd;
+    
     void Awake()
     {
         levelObject = GameObject.Find("Level");
         pointer = levelObject.transform.Find("Pointer");
         bgPointer = levelObject.transform.Find("BackgroundPointer");
+        bird = GameObject.Find("Bird");
+        sky = GameObject.Find("Sky").GetComponent<SpriteRenderer>();
+        ground = GameObject.Find("Ground").GetComponent<SpriteRenderer>();
+        wall = GameObject.Find("Brickwall11").GetComponent<SpriteRenderer>();
+        wallEnd = GameObject.Find("Brickwall22").GetComponent<SpriteRenderer>();
     }
 
     void Start()
     {
         bgPointerPos = bgPointer.position;
         GenerateLevel();
+        AudioManager.LevelMusic = ChosenStage.music;
+        if (bird.GetComponent<BirdMovement>().enabled == false)
+        {
+            StartCoroutine(MoveOut(bird.transform));
+        }
+    }
+
+    IEnumerator MoveOut(Transform trans)
+    {
+        yield return new WaitForSeconds(2f);
+        for (int i = 0; i < 3; i++)
+        {
+            trans.DOMove(new Vector3(trans.position.x + 0.2f, 0, 0), 0.15f);
+            AudioManager.PlaySound(pipeSound, 1, 0.8f);
+            yield return new WaitForSeconds(0.3f);
+        }
+        yield return new WaitForSeconds(1f);
+        StartLevel();
+    }
+
+    void DecorateLevel()
+    {
+        sky.sprite = ChosenStage.sky;
+        ground.sprite = ChosenStage.ground;
+        wall.sprite = ChosenStage.wallSprite;
+        wallEnd.sprite = ChosenStage.wallEndSprite;
+
+        foreach (var item in ChosenStage.backgroundElements)
+        {
+            GameObject newObj = Instantiate(item);
+        }
+    }
+
+    void StartLevel()
+    {
+        StartCoroutine(AudioManager.FadeOutAndPlayNew());
+        bird.GetComponent<BirdMovement>().enabled = true;
     }
 
     void GenerateLevel()
     {
+        DecorateLevel();
         for (int i = 0; i < ChosenStage.length; i++)
         {
             FlappySegment segmentToCreate = ChosenStage.segments[Random.Range(0, ChosenStage.segments.Length)];
@@ -37,9 +88,18 @@ public class LevelGeneration : MonoBehaviour
         pointer.position += new Vector3(10, 0, 0);
         CreateBackgroundProps();
 
+        GameObject[] pipes = GameObject.FindGameObjectsWithTag("Pipe");
+        foreach (var pipe in pipes)
+        {
+            pipe.GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+        }
+
         GameObject newEnd = Instantiate(endPipe, new Vector3(pointer.position.x, 0, 0), endPipe.transform.rotation);
         newEnd.transform.SetParent(levelObject.transform);
         newEnd.transform.localPosition = new Vector3(pointer.position.x, 0, 0);
+
+        GameObject.Find("Brickwall").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallSprite;
+        GameObject.Find("Brickwall2").GetComponent<SpriteRenderer>().sprite = ChosenStage.wallEndSprite;
     }
 
     void CreateSegment(FlappySegment segment)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameInterface : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameInterface : MonoBehaviour
     private BirdHealth health;
     private PipeExit winCondition;
     private static Image flash;
+    [SerializeField]
+    private bool isInGame;
 
     private void Awake()
     {
@@ -30,6 +33,10 @@ public class GameInterface : MonoBehaviour
         {
             DisplayHearts();
         };
+        if (isInGame)
+        {
+            trans.DOMove(trans.position + new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
+        }
         Invoke("FindDelay", 1);
     }
 

@@ -27,7 +27,10 @@ public class Blinking : MonoBehaviour
         InvokeRepeating("BlinkAuto", 1, 3);
         eyes = GameObject.Find("Eyes").GetComponent<SpriteRenderer>();
         render = GetComponent<SpriteRenderer>();
-        sleepParticle = GameObject.Find("SleepParticles").GetComponent<ParticleSystem>();
+        if (Sleeping)
+        {
+            sleepParticle = GameObject.Find("SleepParticles").GetComponent<ParticleSystem>();
+        }
     }
 
     private void Start()

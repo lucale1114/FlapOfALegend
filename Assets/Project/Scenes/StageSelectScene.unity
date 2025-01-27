@@ -244,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 056e4caef37c85e4ba4ca7f9003aa571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: 5490691609116727264, guid: e83e356c53b2c3444bbb5397a21b0dd4, type: 3}
 --- !u!4 &451792174
 Transform:
   m_ObjectHideFlags: 0
@@ -709,6 +711,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1479475475813720360, guid: 9a98f30331175834791ca6844d566736, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: -1479475475813720360, guid: 9a98f30331175834791ca6844d566736, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1479475475813720360, guid: 9a98f30331175834791ca6844d566736, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.03149605
+      objectReference: {fileID: 0}
     - target: {fileID: 1055860974842431633, guid: 9a98f30331175834791ca6844d566736, type: 3}
       propertyPath: m_Color.b
       value: 0.4669811
@@ -765,6 +779,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7041800897355824874, guid: 9a98f30331175834791ca6844d566736, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -803,24 +821,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2347993887437663967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5268542260242378640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b76c16518b7c7244497c2d3aacb8dfaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sleeping: 1
-  BlinkSprite: {fileID: 21300000, guid: 081f4726ad4eaf94886628e6540b2e5d, type: 3}
-  OpenEyesSprite: {fileID: 21300000, guid: ea30b0dd0d1585549bb34d6fe8dca3d2, type: 3}
-  SleepSprite: {fileID: 21300000, guid: f7808caef43e64d4aa49b8405beb5df6, type: 3}
-  DeadEyeSprite: {fileID: 21300000, guid: 3c148b278e6b8444b96dca7150627e1a, type: 3}
-  CanStart: 0
 --- !u!1 &2615143657848624818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,6 @@ GameObject:
   - component: {fileID: 4075469532713309047}
   - component: {fileID: 9073829950445558938}
   - component: {fileID: 3312002378709887268}
-  - component: {fileID: 2347993887437663967}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged

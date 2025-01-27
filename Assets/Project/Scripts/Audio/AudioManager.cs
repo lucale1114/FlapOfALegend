@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
     private static AudioSource source;
     private BirdMovement bm;
 
-    public AudioClip LevelMusic;
+    public static AudioClip LevelMusic;
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
         };
     }
 
-    public IEnumerator FadeOutAndPlayNew()
+    public static IEnumerator FadeOutAndPlayNew()
     {
         source.DOFade(0, 1);
         yield return new WaitForSeconds(1.5f);

@@ -43,6 +43,10 @@ public class BirdMovement : MonoBehaviour
         {
             rb2d.bodyType = RigidbodyType2D.Static;
         }
+        else
+        {
+            rb2d.bodyType = RigidbodyType2D.Dynamic;
+        }
         birdHealth.Died += () => Death();
     }
 

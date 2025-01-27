@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27a941a1fff5624aa8837bea490440a, type: 3}
+  m_Name: Cloud
+  m_EditorClassIdentifier: 
+  segments:
+  - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
+  levelName: Cloudvale
+  music: {fileID: 8300000, guid: af0400041788aef438f3f318aee40bdb, type: 3}
+  chapter: 1
+  length: 31
+  cloud: {fileID: 7783319122823235376, guid: 2d4f001887a1b1c4d80d38113e3ac737, type: 3}
+  backgroundElements:
+  - {fileID: 3561626488638905644, guid: b952a9ab7227ec442ae59e52c8648541, type: 3}
+  - {fileID: 523471837216791352, guid: dd70ed69776a1874a84d94004759d3bd, type: 3}
+  sky: {fileID: 21300000, guid: ca5a1725dcfe27b48828dfa2db5b2f72, type: 3}
+  ground: {fileID: 21300000, guid: 6134542231d927843b51bd5d1143b1ae, type: 3}
+  wallSprite: {fileID: 21300000, guid: d2b6a5efdefc1e9418824ea62553e5ff, type: 3}
+  wallEndSprite: {fileID: 21300000, guid: 72c15d286695ee149a9fbe2a9482a543, type: 3}
+  pipeColor: {r: 0, g: 0.55931664, b: 1, a: 1}

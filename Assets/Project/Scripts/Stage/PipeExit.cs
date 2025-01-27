@@ -64,7 +64,7 @@ public class PipeExit : MonoBehaviour
 
     void WinStage()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 
     void LaunchIn(Transform trans)
