@@ -16,7 +16,7 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField]
     private bool IsMenu;
 
-    public FlappyStage ChosenStage;
+    private FlappyStage ChosenStage;
 
     private SpriteRenderer ground;
     private SpriteRenderer sky;
@@ -33,6 +33,7 @@ public class LevelGeneration : MonoBehaviour
 
     void Start()
     {
+        ChosenStage = GameVariables.Instance.GetLevel();
         bgPointerPos = bgPointer.position;
         GenerateLevel();
         AudioManager.LevelMusic = ChosenStage.music;

@@ -9,7 +9,7 @@ public class GameVariables : MonoBehaviour
     public static int Coins;
     public static int Health = 3;
     public static int Chapter = 1;
-
+    public static FlappyStage levelPicked;
 
     private void Awake()
     {
@@ -41,6 +41,16 @@ public class GameVariables : MonoBehaviour
     public int GetChapter()
     {
         return Chapter;
+    }
+
+    public FlappyStage GetLevel()
+    {
+        return levelPicked;
+    }
+
+    public void SetLevel(FlappyStage level)
+    {
+        levelPicked = level;
     }
 
     public void CoinCollected(int coin)

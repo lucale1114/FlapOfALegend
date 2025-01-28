@@ -15,6 +15,7 @@ public class BirdMovement : MonoBehaviour
     public float FloatPower;
     public float BirdSpeed;
     public bool Sleeping;
+    public bool Knocked;
 
     private bool isFalling;
     private GameObject birdBase;
@@ -48,6 +49,13 @@ public class BirdMovement : MonoBehaviour
             rb2d.bodyType = RigidbodyType2D.Dynamic;
         }
         birdHealth.Died += () => Death();
+        birdHealth.TakeHit += () => {
+            Knocked = true;
+            transform.DOLocalRotate(new Vector3(0, 0, 360), 0.2f, RotateMode.FastBeyond360).SetRelative(true).OnComplete(() =>
+            {
+                Knocked = false;
+            });
+        };
     }
 
     private void Death()
@@ -65,8 +73,11 @@ public class BirdMovement : MonoBehaviour
             return;
         }
         birdBase.transform.DOKill();
-        birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
-        rb2d.velocity = Vector3.zero;
+        if (!Knocked)
+        {
+            birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
+        }
+        rb2d.velocity = new Vector3(rb2d.velocity.x, 0);
         wingAnimator.Play("Wings1", 0, 0);
         AudioManager.PlaySound(flapSound, 1, 1);
         rb2d.AddForce(new Vector3(0, FloatPower, 0));
@@ -82,7 +93,6 @@ public class BirdMovement : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject != null)
             {
-                print("stop");
                 return;
             }
             if (Sleeping)

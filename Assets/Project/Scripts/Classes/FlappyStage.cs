@@ -7,6 +7,7 @@ public class FlappyStage : ScriptableObject
 {
     public FlappySegment[] segments;
     public string levelName;
+    public string description;
     public AudioClip music;
     public int chapter;
     public int length;
@@ -16,5 +17,6 @@ public class FlappyStage : ScriptableObject
     public Sprite ground;
     public Sprite wallSprite;
     public Sprite wallEndSprite;
+    public Sprite thumbnail;
     public Color pipeColor;
 }

@@ -7,6 +7,8 @@ public class AudioManager : MonoBehaviour
 {
     private static AudioSource source;
     private BirdMovement bm;
+    [SerializeField]
+    private bool InSelection;
 
     public static AudioClip LevelMusic;
 
@@ -18,9 +20,11 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        bm.WokeUp += () => {
-            StartCoroutine(FadeOutAndPlayNew());
-        };
+        if (!InSelection) { 
+            bm.WokeUp += () => {
+                StartCoroutine(FadeOutAndPlayNew());
+            };
+        }
     }
 
     public static IEnumerator FadeOutAndPlayNew()
@@ -29,7 +33,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         source.clip = LevelMusic;
         source.Play();
-        source.DOFade(1, 1);
+        source.DOFade(1, 2);
     }
 
     public static void StopMusic() {
