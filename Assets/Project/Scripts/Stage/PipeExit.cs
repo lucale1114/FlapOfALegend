@@ -65,7 +65,16 @@ public class PipeExit : MonoBehaviour
     void WinStage()
     {
         GameVariables.Instance.SetHealth(FindObjectOfType<BirdHealth>().Health);
-        SceneManager.LoadScene(2);
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
+            SceneManager.UnloadSceneAsync(2);
+            FindObjectOfType<SelectionStage>().SwitchScene(true);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
     void LaunchIn(Transform trans)

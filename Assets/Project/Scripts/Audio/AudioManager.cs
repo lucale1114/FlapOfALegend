@@ -20,11 +20,17 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
+        source.volume = 0.5f;
         if (!InSelection) { 
             bm.WokeUp += () => {
                 StartCoroutine(FadeOutAndPlayNew());
             };
         }
+    }
+
+    public static void SimpleFadeOut()
+    {
+        source.DOFade(0, 2);
     }
 
     public static IEnumerator FadeOutAndPlayNew()

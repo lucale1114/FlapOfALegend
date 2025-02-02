@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 693336931932858143}
   - component: {fileID: -1479475475813720360}
   - component: {fileID: 4738822011565499458}
+  - component: {fileID: 2306783594401856834}
   m_Layer: 0
   m_Name: Node
   m_TagString: Untagged
@@ -33,9 +34,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4221001504522055554}
   - {fileID: 8865540420556614838}
   - {fileID: 3354761573945970115}
-  - {fileID: 4221001504522055554}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &293211610309151654
@@ -156,7 +157,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -251,7 +252,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c53b9e6b8b27e1940a118b4f6f2cda00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neighbors: []
+  Empty: 0
   Completed: 0
+  DeadEnd: 1
+--- !u!114 &2306783594401856834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2218379291964692404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c91f32f72b90244588a5242de2a9b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Connections: []
 --- !u!1 &5707918719767002295
 GameObject:
   m_ObjectHideFlags: 0

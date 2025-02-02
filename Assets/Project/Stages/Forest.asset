@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27a941a1fff5624aa8837bea490440a, type: 3}
+  m_Name: Forest
+  m_EditorClassIdentifier: 
+  segments:
+  - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
+  levelName: Pipest
+  description: A lot of pipes grow here, beware!
+  music: {fileID: 8300000, guid: 791e8a7ee2fd62e4fb6450b907cff2c7, type: 3}
+  chapter: 1
+  length: 1
+  cloud: {fileID: 7783319122823235376, guid: 2d4f001887a1b1c4d80d38113e3ac737, type: 3}
+  backgroundElements:
+  - {fileID: 3432247084578059946, guid: 070a8fa817f2c094ebcb149dbb24e1c6, type: 3}
+  - {fileID: 523471837216791352, guid: dd70ed69776a1874a84d94004759d3bd, type: 3}
+  - {fileID: 364999423958246325, guid: 421416f2e6c4cf64bae5d2732618a1ef, type: 3}
+  sky: {fileID: 21300000, guid: cbd9d12db972991478df4b5752248133, type: 3}
+  ground: {fileID: 21300000, guid: d1c1d5f627594c14da748c0af99f1606, type: 3}
+  wallSprite: {fileID: 21300000, guid: 0da8654d18f55b340834141e85d55466, type: 3}
+  wallEndSprite: {fileID: 21300000, guid: 235e1441bf81c7e4fa1d757d05c79c82, type: 3}
+  thumbnail: {fileID: 21300000, guid: 4a0625b7e318f8546824909e460683b2, type: 3}
+  pipeColor: {r: 1, g: 0.76900256, b: 0.495283, a: 1}

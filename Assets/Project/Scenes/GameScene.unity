@@ -758,6 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9fdc75d20b2604f9d6b25c963d79b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InSelection: 0
 --- !u!82 &493276165
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1366,7 +1367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -174.83, y: 102}
+  m_AnchoredPosition: {x: -173.87, y: 103.52}
   m_SizeDelta: {x: 2296.9, y: 4038.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276115720
@@ -1835,6 +1836,7 @@ GameObject:
   - component: {fileID: 1844080111}
   - component: {fileID: 1844080110}
   - component: {fileID: 1844080109}
+  - component: {fileID: 1844080113}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1856,7 +1858,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endPipe: {fileID: 1290501521310803748, guid: fdf22621cf01d6d4791df95a60249676, type: 3}
   pipeSound: {fileID: 8300000, guid: e8560dff60f3f464981b321e84f68265, type: 3}
-  ChosenStage: {fileID: 11400000, guid: 2fc5509dab4bf0a41bb06e892faf3dfb, type: 2}
+  IsMenu: 0
+  ChosenStage: {fileID: 11400000, guid: 052c6212c7e043848b39db00af9671e4, type: 2}
 --- !u!114 &1844080110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1896,6 +1899,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1844080113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844080108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4240b69c5937bcc4c9b5253c0450abfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1877543931
 GameObject:
   m_ObjectHideFlags: 0

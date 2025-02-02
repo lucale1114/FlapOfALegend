@@ -21,6 +21,7 @@ public class SelectionBird : MonoBehaviour
         //transform.localPosition -= new Vector3(0.12f, 0);
         FloatUp();
         InvokeRepeating("Blink", 2, 3);
+        InvokeRepeating("Wing", 1, 1);
     }
 
     private void FloatUp()
@@ -36,5 +37,10 @@ public class SelectionBird : MonoBehaviour
     private void Blink()
     {
         blinkAnimator.Play("Blink1", 0, 0);
+    }
+
+    private void Wing()
+    {
+        wingAnimator.Play("Wings1", 0, 0);
     }
 }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
+
 public class LevelGeneration : MonoBehaviour
 {
     private GameObject levelObject;
@@ -15,7 +17,7 @@ public class LevelGeneration : MonoBehaviour
     private AudioClip pipeSound;
     [SerializeField]
     private bool IsMenu;
-
+    [SerializeField]
     private FlappyStage ChosenStage;
 
     private SpriteRenderer ground;
@@ -33,7 +35,11 @@ public class LevelGeneration : MonoBehaviour
 
     void Start()
     {
-        ChosenStage = GameVariables.Instance.GetLevel();
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        if (GameVariables.Instance != null && !IsMenu)
+        {
+            ChosenStage = GameVariables.Instance.GetLevel();
+        }
         bgPointerPos = bgPointer.position;
         GenerateLevel();
         AudioManager.LevelMusic = ChosenStage.music;

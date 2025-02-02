@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonCosmetic : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ButtonCosmetic : MonoBehaviour
     {
         text = transform.GetChild(0);
         defaultP = text.localPosition;
-        if (transform.parent.parent.GetComponent<Canvas>().renderMode == RenderMode.WorldSpace)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             offset = -0.001f;
         }
@@ -20,7 +21,6 @@ public class ButtonCosmetic : MonoBehaviour
 
     public void Up()
     {
-        print("yueah");
         text.transform.localPosition = defaultP;
     }
 
