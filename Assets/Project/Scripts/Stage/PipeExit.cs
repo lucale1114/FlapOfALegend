@@ -69,7 +69,7 @@ public class PipeExit : MonoBehaviour
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
             SceneManager.UnloadSceneAsync(2);
-            FindObjectOfType<SelectionStage>().SwitchScene(true);
+            FindObjectOfType<SelectionStage>().LevelCleared();
         }
         else
         {

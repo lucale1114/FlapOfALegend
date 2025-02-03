@@ -92,7 +92,6 @@ public class BirdHealth : MonoBehaviour
             return;
         }
 
-        transform.DOLocalRotate(new Vector3(0, 0, 360), 0.2f, RotateMode.FastBeyond360).SetRelative(true);
         GameInterface.FlashImage(0.8f, 0.2f);
         StartCoroutine(RemoveIFrame());
         iFrame = true;

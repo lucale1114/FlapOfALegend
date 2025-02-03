@@ -14,7 +14,7 @@ namespace Pathfinding
         [SerializeField]
         protected Graph m_Graph;
         [SerializeField]
-        protected float m_Speed = 0.001f;
+        protected float m_Speed = 0.010f;
         public Node currentNode;
         public bool Moving;
 
@@ -28,7 +28,12 @@ namespace Pathfinding
 
         public void StartFollow(Node m_Start, Node m_End)
         {
+            if (Moving)
+            {
+                return;
+            }
             m_Path = m_Graph.GetShortestPath(m_Start, m_End);
+            Moving = true;
             Follow(m_Path);
         }
 
@@ -66,6 +71,7 @@ namespace Pathfinding
               });
             }
             m_Current = null;
+            Moving = false;
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.update -= Update;
 #endif
@@ -75,7 +81,7 @@ namespace Pathfinding
         {
             if (m_Current != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, m_Current.transform.GetChild(0).position, m_Speed);
+                transform.position = Vector3.MoveTowards(transform.position, m_Current.transform.GetChild(0).position, m_Speed * Time.deltaTime);
             }
         }
 

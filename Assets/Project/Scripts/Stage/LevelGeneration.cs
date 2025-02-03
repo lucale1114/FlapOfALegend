@@ -35,7 +35,10 @@ public class LevelGeneration : MonoBehaviour
 
     void Start()
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        }
         if (GameVariables.Instance != null && !IsMenu)
         {
             ChosenStage = GameVariables.Instance.GetLevel();

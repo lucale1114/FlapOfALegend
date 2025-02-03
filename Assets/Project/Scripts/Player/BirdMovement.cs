@@ -81,7 +81,6 @@ public class BirdMovement : MonoBehaviour
         wingAnimator.Play("Wings1", 0, 0);
         AudioManager.PlaySound(flapSound, 1, 1);
         rb2d.AddForce(new Vector3(0, FloatPower, 0));
-        print("flapped");
     }
 
     // Update is called once per frame

@@ -14,12 +14,17 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        source = GetComponent<AudioSource>();
         bm = FindObjectOfType<BirdMovement>();
+    }
+
+    public void SetAudioSource()
+    {
+        source = GetComponent<AudioSource>();
     }
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
         source.volume = 0.5f;
         if (!InSelection) { 
             bm.WokeUp += () => {

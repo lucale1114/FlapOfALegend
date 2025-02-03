@@ -20,6 +20,10 @@ public class NodePoint : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (pathfinding.Moving)
+        {
+            return;
+        }
         BringUpNodeInteface();
         pathfinding.StartFollow(pathfinding.currentNode, GetComponent<Pathfinding.Node>());
         pathfinding.currentNode = GetComponent<Pathfinding.Node>();
@@ -27,7 +31,7 @@ public class NodePoint : MonoBehaviour
 
     private void BringUpNodeInteface()
     {
-        if (Empty) // || pathfinding.Moving)
+        if (Empty || Completed) // || pathfinding.Moving)
         {
             nodeInterface.transform.DOScale(new Vector3(1, 0, 1), 0.5f).OnComplete(() => {
                 //nodeInterface.gameObject.SetActive(false);
@@ -42,7 +46,7 @@ public class NodePoint : MonoBehaviour
         nodeInterface.Find("ChapterDesc").GetComponent<TextMeshProUGUI>().text = "Chapter: " + nodeLevel.chapter;
         nodeInterface.Find("Description").GetComponent<TextMeshProUGUI>().text = nodeLevel.description;
         nodeInterface.Find("LevelThumbnail").GetComponent<Image>().sprite = nodeLevel.thumbnail;
-        stageScript.SetSelectedNode(nodeLevel);
+        stageScript.SetSelectedNode(nodeLevel, gameObject);
 
         var pos = transform.position;
         pos.z = -10;

@@ -15,6 +15,7 @@ public class SelectionStage : MonoBehaviour
     private AudioClip[] music;
     private List<FlappyStage> alreadyUsed = new List<FlappyStage>();
     private Pathfinding.Graph graph;
+    private Vector3 transPos;
 
     public GameObject[] everything;
     public GameObject[] nodes;
@@ -28,27 +29,32 @@ public class SelectionStage : MonoBehaviour
 
     void Start()
     {
+        transPos = trans.position;
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         GenerateNextNode();
         AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
-        for (int i = 0; i < 5; i++)
-        {
-            GenerateNextNode();
-        }
     }
 
     void GenerateNextNode()
     {
         alreadyUsed.Clear();
+        nodeToGenerateOn.GetComponent<NodePoint>().Completed = true;
+
         GameObject newNode = Instantiate(nodes[Random.Range(0, nodes.Length)]);
-        newNode.transform.position = nodeToGenerateOn.transform.position + new Vector3(1.5f, 0);
+        Vector3 normalPos = nodeToGenerateOn.transform.position + new Vector3(1.5f, 0);
+        newNode.transform.position = normalPos + new Vector3(0, 50);
+        newNode.transform.DOMove(normalPos, 2.5f);
 
         Transform startNode = null;
 
         LineRenderer nodeLine = nodeToGenerateOn.GetComponent<LineRenderer>();
         foreach (Transform item in newNode.transform)
         {
+            if (item.name == "LineThing")
+            {
+                continue;
+            }
             NodePoint nodeScript = item.GetComponent<NodePoint>();
             graph.nodes.Add(item.GetComponent<Pathfinding.Node>());
             if (item.CompareTag("Main"))
@@ -65,10 +71,8 @@ public class SelectionStage : MonoBehaviour
             }
         }
         nodeLine.SetPosition(0, nodeToGenerateOn.transform.position);
-        nodeLine.SetPosition(1, startNode.position);
+        DOTween.To(() => nodeLine.GetPosition(0), (x) => nodeLine.SetPosition(1, x), normalPos, 2.25f).Play();
         NodePoint oldNode = nodeToGenerateOn.GetComponent<NodePoint>();
-
-        nodeToGenerateOn = newNode.transform.Find("Node").gameObject;
 
         oldNode.neighbors.Add(startNode.GetComponent<NodePoint>());
         oldNode.GetComponent<Pathfinding.Node>().m_Connections.Add(oldNode.neighbors[oldNode.neighbors.Count - 1].GetComponent<Pathfinding.Node>());
@@ -77,8 +81,9 @@ public class SelectionStage : MonoBehaviour
         startNode.GetComponent<Pathfinding.Node>().m_Connections.Add(startNode.GetComponent<NodePoint>().neighbors[startNode.GetComponent<NodePoint>().neighbors.Count - 1].GetComponent<Pathfinding.Node>());
     }
 
-    public void SetSelectedNode(FlappyStage nodeSelected)
+    public void SetSelectedNode(FlappyStage nodeSelected, GameObject newNode)
     {
+        nodeToGenerateOn = newNode;
         levelToPlay = nodeSelected;
         GameVariables.Instance.SetLevel(levelToPlay);
     }
@@ -90,7 +95,22 @@ public class SelectionStage : MonoBehaviour
         SceneManager.LoadScene(2, LoadSceneMode.Additive);
     }
 
-    public void SwitchScene(bool state)
+    private void SpawnNext() {
+        GenerateNextNode();
+    }
+    public void LevelCleared()
+    {
+        SwitchScene(true);
+        trans.position = transPos;
+        GameObject.Find("InfoFrame").transform.position -= new Vector3(100, 0);
+        FindObjectOfType<AudioManager>().SetAudioSource();
+        AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
+        StartCoroutine(AudioManager.FadeOutAndPlayNew());
+        trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
+        Invoke("SpawnNext", 2);
+    }
+
+    void SwitchScene(bool state)
     {
         if (!state)
         {
