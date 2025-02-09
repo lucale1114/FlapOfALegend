@@ -26,6 +26,10 @@ public class ButtonCosmetic : MonoBehaviour
 
     public void Down()
     {
+        if (GameVariables.Instance.CanInteractSelect())
+        {
+            AudioManager.PlaySound(GameVariables.Instance.ButtonClickSound, 0.5f, 0.8f);
+        }
         text.transform.localPosition = new Vector3(0, offset, 0);
     }
 }

@@ -36,11 +36,17 @@ public class SelectionBird : MonoBehaviour
 
     private void Blink()
     {
-        blinkAnimator.Play("Blink1", 0, 0);
+        if (gameObject.activeInHierarchy)
+        {
+            blinkAnimator.Play("Blink1", 0, 0);
+        }
     }
 
     private void Wing()
     {
-        wingAnimator.Play("Wings1", 0, 0);
+        if (gameObject.activeInHierarchy)
+        {
+            wingAnimator.Play("Wings1", 0, 0);
+        }
     }
 }

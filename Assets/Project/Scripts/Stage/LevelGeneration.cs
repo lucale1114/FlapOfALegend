@@ -35,12 +35,14 @@ public class LevelGeneration : MonoBehaviour
 
     void Start()
     {
+        GameVariables.Instance.SetInteractSelect(true);
         if (SceneManager.GetActiveScene().buildIndex != 0)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         }
         if (GameVariables.Instance != null && !IsMenu)
         {
+            print("set");
             ChosenStage = GameVariables.Instance.GetLevel();
         }
         bgPointerPos = bgPointer.position;
@@ -54,14 +56,14 @@ public class LevelGeneration : MonoBehaviour
 
     IEnumerator MoveOut(Transform trans)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < 3; i++)
         {
             trans.DOMove(new Vector3(trans.position.x + 0.2f, 0, 0), 0.15f);
             AudioManager.PlaySound(pipeSound, 1, 0.8f);
             yield return new WaitForSeconds(0.3f);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.8f);
         StartLevel();
     }
 
@@ -99,7 +101,11 @@ public class LevelGeneration : MonoBehaviour
         
         for (int i = 0; i < ChosenStage.length; i++)
         {
-            FlappySegment segmentToCreate = ChosenStage.segments[Random.Range(0, ChosenStage.segments.Length)];
+            FlappySegment segmentToCreate = null;
+            while (segmentToCreate == null)
+            {
+                segmentToCreate = PickASegment();
+            }
             CreateSegment(segmentToCreate);
         }
 
@@ -110,10 +116,23 @@ public class LevelGeneration : MonoBehaviour
         newEnd.transform.SetParent(levelObject.transform);
         newEnd.transform.localPosition = new Vector3(pointer.position.x, 0, 0);
 
+        newEnd.transform.Find("Brickbreak").GetComponent<ParticleSystem>().startColor = ChosenStage.brickbreakColor;
+
         if (!IsMenu)
         {
             DecorateLevel();
         }
+    }
+
+    FlappySegment PickASegment()
+    {
+        int randomChance = Random.Range(1, 100);
+        FlappySegment segmentChosen = ChosenStage.segments[Random.Range(0, ChosenStage.segments.Length)];
+        if (segmentChosen.commonFactor < randomChance)
+        {
+            return null;
+        }
+        return segmentChosen;
     }
 
     void CreateSegment(FlappySegment segment)
@@ -140,7 +159,6 @@ public class LevelGeneration : MonoBehaviour
         {
             GameObject newObj = Instantiate(item);
         }
-    
     }
 
     void PaintClouds(GameObject cloud)

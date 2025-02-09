@@ -13,6 +13,7 @@ public class NodePoint : MonoBehaviour
     private Transform nodeInterface;
     private SelectionStage stageScript;
     private Pathfinding.Follower pathfinding;
+    private SpriteRenderer selectionSprite;
 
     public List<NodePoint> neighbors;
     public bool Empty;
@@ -20,24 +21,35 @@ public class NodePoint : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (!GameVariables.Instance.CanInteractSelect())
+        {
+            return;
+        }
+        AudioManager.PlaySound(stageScript.Beep, 0.3f, 0.9f);
         if (pathfinding.Moving)
         {
             return;
         }
-        BringUpNodeInteface();
         pathfinding.StartFollow(pathfinding.currentNode, GetComponent<Pathfinding.Node>());
         pathfinding.currentNode = GetComponent<Pathfinding.Node>();
+        BringUpNodeInteface();
     }
 
     private void BringUpNodeInteface()
     {
         if (Empty || Completed) // || pathfinding.Moving)
         {
+            if (Completed)
+            {
+                selectionSprite.enabled = true;
+            }
             nodeInterface.transform.DOScale(new Vector3(1, 0, 1), 0.5f).OnComplete(() => {
                 //nodeInterface.gameObject.SetActive(false);
             });
             return;
         }
+        selectionSprite.enabled = true;
+        AudioManager.PlaySound(stageScript.NodeAppearSound, 0.5f, 0.7f);
         nodeInterface.gameObject.SetActive(true);
         nodeInterface.position = transform.position + new Vector3(0, 2.5f);
         nodeInterface.transform.localScale = new Vector3(1, 0, 1);
@@ -57,6 +69,7 @@ public class NodePoint : MonoBehaviour
     {
         if (!Empty) {
             nodeHead = transform.GetChild(1).GetComponent<SpriteRenderer>();
+            selectionSprite = transform.GetChild(2).GetComponent<SpriteRenderer>();
         }
         anchor = transform.Find("BirdAnchor");
         nodeInterface = GameObject.Find("InfoFrame").transform;
@@ -66,7 +79,19 @@ public class NodePoint : MonoBehaviour
 
     private void Start()
     {
-
+        if (!Empty)
+        {
+            if (gameObject.name != "StartNode")
+            {
+                selectionSprite.enabled = false;
+            }
+            pathfinding.Travelling += () => {
+                if (pathfinding.currentNode != gameObject)
+                {
+                    selectionSprite.enabled = false;
+                }
+            };
+        }
     }
 
     public void StartNode(FlappyStage stage)

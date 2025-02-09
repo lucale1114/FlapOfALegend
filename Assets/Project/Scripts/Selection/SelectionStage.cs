@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectionStage : MonoBehaviour
 {
@@ -16,12 +17,21 @@ public class SelectionStage : MonoBehaviour
     private List<FlappyStage> alreadyUsed = new List<FlappyStage>();
     private Pathfinding.Graph graph;
     private Vector3 transPos;
+    private GameObject transCircle;
+    private bool starting;
 
-    public GameObject[] everything;
+    public AudioClip Beep;
+    public AudioClip NodeAppearSound;
+    public List<GameObject> everything;
     public GameObject[] nodes;
+
+    public Image[] HeartSprites;
+    public Sprite FullHeart;
+    public Sprite EmptyHeart;
 
     private void Awake()
     {
+        transCircle = GameObject.Find("Circle");
         trans = GameObject.Find("Transition").transform;
         nodeToGenerateOn = GameObject.Find("StartNode");
         graph = FindObjectOfType<Pathfinding.Graph>();
@@ -32,7 +42,9 @@ public class SelectionStage : MonoBehaviour
         transPos = trans.position;
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         GenerateNextNode();
+        FindObjectOfType<AudioManager>().SetAudioSource();
         AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
+        DisplayHearts();
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
     }
 
@@ -44,7 +56,9 @@ public class SelectionStage : MonoBehaviour
         GameObject newNode = Instantiate(nodes[Random.Range(0, nodes.Length)]);
         Vector3 normalPos = nodeToGenerateOn.transform.position + new Vector3(1.5f, 0);
         newNode.transform.position = normalPos + new Vector3(0, 50);
-        newNode.transform.DOMove(normalPos, 2.5f);
+        newNode.transform.DOMove(normalPos, 2.5f).OnComplete(() => {
+            GameVariables.Instance.SetInteractSelect(true);
+        });
 
         Transform startNode = null;
 
@@ -90,21 +104,65 @@ public class SelectionStage : MonoBehaviour
 
     public void StartTheGame()
     {
+        GameVariables.Instance.SetInteractSelect(false);
+        GameObject.Find("Lives").GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+        if (starting)
+        {
+            return;
+        }
         AudioManager.SimpleFadeOut();
-        SwitchScene(false);
+
+        //transCircle.transform.position = GameObject.Find("SelectionBird").transform.position;
+        starting = true;
+        transCircle.transform.DOScale(new Vector3(0, 0, 0), 2).OnComplete(() => {
+            SwitchScene(false);
+            Invoke("GoNext", 1);
+        });
+    }
+
+    private void GoNext()
+    {
         SceneManager.LoadScene(2, LoadSceneMode.Additive);
     }
 
     private void SpawnNext() {
         GenerateNextNode();
     }
+
+    private void DisplayHearts()
+    {
+        for (int i = 0; i < HeartSprites.Length; i++)
+        {
+            if (i < GameVariables.Instance.GetHealth())
+            {
+                HeartSprites[i].sprite = FullHeart;
+            }
+            else
+            {
+                HeartSprites[i].sprite = EmptyHeart;
+            }
+
+            if (i < GameVariables.Instance.GetContainers())
+            {
+                HeartSprites[i].enabled = true;
+            }
+            else
+            {
+                HeartSprites[i].enabled = false;
+            }
+        }
+    }
+
     public void LevelCleared()
     {
+        GameVariables.Instance.SetInteractSelect(false);
         SwitchScene(true);
+        starting = false;
+        GameObject.Find("Circle").transform.localScale = new Vector3(3.2f, 2.75f, 1.35f);
         trans.position = transPos;
         GameObject.Find("InfoFrame").transform.position -= new Vector3(100, 0);
-        FindObjectOfType<AudioManager>().SetAudioSource();
         AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
+        GameObject.FindGameObjectWithTag("Useless").GetComponent<AudioManager>().SetAudioSource();
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         Invoke("SpawnNext", 2);
@@ -114,11 +172,18 @@ public class SelectionStage : MonoBehaviour
     {
         if (!state)
         {
-            everything = FindObjectsOfType<GameObject>();
+            everything = new List<GameObject>(FindObjectsOfType<GameObject>());
+            foreach (GameObject e in everything)
+            {
+                if (e.CompareTag("Sound"))
+                {
+                    everything.Remove(e);
+                }
+            }
         }
         foreach (GameObject obj in everything)
         {
-            if (obj == gameObject || obj.name == "[DOTween]")
+            if (obj == gameObject || obj.name == "[DOTween]" || obj.name == "Firebase Services")
             {
                 continue;
             }

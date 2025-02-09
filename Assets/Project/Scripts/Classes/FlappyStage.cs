@@ -19,4 +19,5 @@ public class FlappyStage : ScriptableObject
     public Sprite wallEndSprite;
     public Sprite thumbnail;
     public Color pipeColor;
+    public Color brickbreakColor;
 }

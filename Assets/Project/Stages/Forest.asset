@@ -30,3 +30,4 @@ MonoBehaviour:
   wallEndSprite: {fileID: 21300000, guid: 235e1441bf81c7e4fa1d757d05c79c82, type: 3}
   thumbnail: {fileID: 21300000, guid: 4a0625b7e318f8546824909e460683b2, type: 3}
   pipeColor: {r: 1, g: 0.76900256, b: 0.495283, a: 1}
+  brickbreakColor: {r: 1, g: 0.7180674, b: 0.3726415, a: 1}

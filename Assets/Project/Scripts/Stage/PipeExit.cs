@@ -10,6 +10,7 @@ public class PipeExit : MonoBehaviour
     public event Action WinState;
     private bool hasWon;
     private ParticleSystem brickbreak;
+    private BirdHealth health;
     [SerializeField]
     private AudioClip wallBreakSound;
     [SerializeField]
@@ -18,6 +19,7 @@ public class PipeExit : MonoBehaviour
     private void Awake()
     {
         brickbreak = transform.parent.Find("Brickbreak").GetComponent<ParticleSystem>();
+        health = FindObjectOfType<BirdHealth>();
     }
 
     GameObject VictoryTouch(Collider2D collision)
@@ -59,12 +61,17 @@ public class PipeExit : MonoBehaviour
             AudioManager.PlaySound(pipeEnterNoise, 1, 1);
             yield return new WaitForSeconds(0.3f);
         }
-        Invoke("WinStage", 3.5f);
+        Invoke("WinStage", 2f);
     }
 
     void WinStage()
     {
+        if (health.Health == 0)
+        {
+            return;
+        }
         GameVariables.Instance.SetHealth(FindObjectOfType<BirdHealth>().Health);
+        GameVariables.Instance.SetContainers(FindObjectOfType<BirdHealth>().Containers);
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(1));
@@ -87,7 +94,7 @@ public class PipeExit : MonoBehaviour
         bPos.y = trans.position.y;
         brickbreak.transform.position = bPos;
         StartCoroutine(Emit());
-        Invoke("WinStage", 4);
+        Invoke("WinStage", 2.5f);
     }
 
     IEnumerator Emit()

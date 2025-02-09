@@ -27,9 +27,6 @@ public class FirebaseLogin : MonoBehaviour
         passwordField2 = GameObject.Find("Password2").GetComponent<TMP_InputField>();
         emailField2 = GameObject.Find("Email2").GetComponent<TMP_InputField>();
         greetText = GameObject.Find("Greet").GetComponent<TextMeshProUGUI>();
-
-        print(passwordField.text);
-
         userField.transform.parent.gameObject.SetActive(false);
         passwordField2.transform.parent.gameObject.SetActive(false);
     }

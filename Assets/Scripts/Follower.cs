@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Pathfinding
     [ExecuteInEditMode]
     public class Follower : MonoBehaviour
     {
-
+        public event Action Travelling;
         [SerializeField]
         protected Graph m_Graph;
         [SerializeField]
@@ -35,6 +36,7 @@ namespace Pathfinding
             m_Path = m_Graph.GetShortestPath(m_Start, m_End);
             Moving = true;
             Follow(m_Path);
+            Travelling?.Invoke();
         }
 
         /// <summary>
@@ -45,7 +47,6 @@ namespace Pathfinding
         {
             StopCoroutine("FollowPath");
             m_Path = path;
-            print(m_Path.nodes.Count);
             transform.position = m_Path.nodes[0].transform.GetChild(0).position;
             StartCoroutine("FollowPath");
         }

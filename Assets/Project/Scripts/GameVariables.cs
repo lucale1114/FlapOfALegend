@@ -8,8 +8,12 @@ public class GameVariables : MonoBehaviour
 
     public static int Coins;
     public static int Health = 3;
+    public static int HealthContainers = 3;
     public static int Chapter = 1;
-    public static FlappyStage levelPicked;
+    public static FlappyStage LevelPicked;
+    public static bool PressedStart = true;
+
+    public AudioClip ButtonClickSound;
 
     private void Awake()
     {
@@ -33,6 +37,16 @@ public class GameVariables : MonoBehaviour
         Health = health;
     }
 
+    public int GetContainers()
+    {
+        return HealthContainers;
+    }
+
+    public void SetContainers(int containers)
+    {
+        HealthContainers = containers;
+    }
+
     public void AdvanceChapter()
     {
         Chapter++;
@@ -43,14 +57,31 @@ public class GameVariables : MonoBehaviour
         return Chapter;
     }
 
+    public bool CanInteractSelect()
+    {
+        return PressedStart;
+    }
+
+    public void SetInteractSelect(bool state)
+    {
+        PressedStart = state;
+    }
+
     public FlappyStage GetLevel()
     {
-        return levelPicked;
+        return LevelPicked;
+    }
+
+    public void ResetVariables()
+    {
+        Health = 3;
+        Chapter = 1;
+        LevelPicked = null;
     }
 
     public void SetLevel(FlappyStage level)
     {
-        levelPicked = level;
+        LevelPicked = level;
     }
 
     public void CoinCollected(int coin)

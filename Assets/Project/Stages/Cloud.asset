@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segments:
   - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
+  - {fileID: 11400000, guid: e195705e0801eed439801338714ca24f, type: 2}
+  - {fileID: 11400000, guid: d75b2a2298a10c843b88bc1c1bcfdf69, type: 2}
   levelName: Cloudvale
   description: Many have been here before you, but you came in a different condition!
   music: {fileID: 8300000, guid: af0400041788aef438f3f318aee40bdb, type: 3}
@@ -29,3 +31,4 @@ MonoBehaviour:
   wallEndSprite: {fileID: 21300000, guid: 72c15d286695ee149a9fbe2a9482a543, type: 3}
   thumbnail: {fileID: 21300000, guid: a51b05153a210e348add47d6e2badff2, type: 3}
   pipeColor: {r: 0, g: 0.55931664, b: 1, a: 1}
+  brickbreakColor: {r: 1, g: 1, b: 1, a: 1}

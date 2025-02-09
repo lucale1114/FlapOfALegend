@@ -9,6 +9,7 @@ public class MainInterface : MonoBehaviour
 {
     private TextMeshProUGUI winCounter;
     private Transform healthBar;
+    private Transform pauseButton;
     [SerializeField]
     private Transform loginField;
     [SerializeField]
@@ -28,6 +29,7 @@ public class MainInterface : MonoBehaviour
     {
         winCounter = GameObject.Find("WinCounter").GetComponent<TextMeshProUGUI>();
         healthBar = GameObject.Find("Lives").transform;
+        pauseButton = GameObject.Find("PauseButton").transform;
         fbLogin = FindObjectOfType<FirebaseLogin>();
         buttonLogin = GameObject.Find("ButtonLogin").transform;
         buttonRegister = GameObject.Find("ButtonRegister").transform;
@@ -36,6 +38,7 @@ public class MainInterface : MonoBehaviour
 
     private void Start()
     {
+        pauseButton.position -= new Vector3(1000, 0, 0);
         loginFieldPosBack = loginField.position + new Vector3(-2000, 0);
         loginFieldPos = loginField.position;
 
@@ -49,6 +52,7 @@ public class MainInterface : MonoBehaviour
             buttonRegister.DOMove(buttonRegister.position + new Vector3(0, 500, 0), 2);
             buttonSign.DOMove(buttonSign.position + new Vector3(0, 500, 0), 2);
             healthBar.GetComponent<CanvasGroup>().DOFade(1, 2);
+            pauseButton.DOMoveX(pauseButton.position.x + 1000, 2);
         };
         
         fbLogin.LoggedIn += () => {

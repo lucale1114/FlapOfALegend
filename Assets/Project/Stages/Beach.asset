@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c27a941a1fff5624aa8837bea490440a, type: 3}
+  m_Name: Beach
+  m_EditorClassIdentifier: 
+  segments:
+  - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
+  levelName: Flapping Bay
+  description: Pipes and birds alike come to relax here. But that is not what you're
+    here for.
+  music: {fileID: 8300000, guid: da1ae20cc51d07444a0e055e17977e4c, type: 3}
+  chapter: 1
+  length: 30
+  cloud: {fileID: 0}
+  backgroundElements:
+  - {fileID: 7104920779394897463, guid: 6cc03459e90678949b948d0b41b99548, type: 3}
+  - {fileID: 523471837216791352, guid: dd70ed69776a1874a84d94004759d3bd, type: 3}
+  sky: {fileID: 21300000, guid: e6ca129c171e18b4f93db074286a860e, type: 3}
+  ground: {fileID: 21300000, guid: e7822bb2a1d6836468f0c4287f2bf7a7, type: 3}
+  wallSprite: {fileID: 21300000, guid: 0aaf5aec25eba30438ab9bf539adfd03, type: 3}
+  wallEndSprite: {fileID: 21300000, guid: b4d75407936543c4da2829496abdae97, type: 3}
+  thumbnail: {fileID: 0}
+  pipeColor: {r: 0.7647059, g: 0.30894122, b: 0.30894122, a: 1}
+  brickbreakColor: {r: 1, g: 0.99235576, b: 0.5896226, a: 1}

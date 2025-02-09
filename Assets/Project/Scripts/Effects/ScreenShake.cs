@@ -7,7 +7,6 @@ public class ScreenShake : MonoBehaviour
 {
     public static IEnumerator ShakeScreen(float duration, float intensity)
     {
-        print("shok");
         float newIntensity = intensity;
         for (float i = 0; i < duration; i += 0.1f)
         {

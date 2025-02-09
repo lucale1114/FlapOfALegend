@@ -9,9 +9,11 @@ public class AudioManager : MonoBehaviour
     private BirdMovement bm;
     [SerializeField]
     private bool InSelection;
-
+    private static float volumeMod = 0.5f;
+    
     public static AudioClip LevelMusic;
 
+    
     void Awake()
     {
         bm = FindObjectOfType<BirdMovement>();
@@ -35,7 +37,7 @@ public class AudioManager : MonoBehaviour
 
     public static void SimpleFadeOut()
     {
-        source.DOFade(0, 2);
+        source.DOFade(0, 2).SetUpdate(true);
     }
 
     public static IEnumerator FadeOutAndPlayNew()
@@ -44,7 +46,7 @@ public class AudioManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         source.clip = LevelMusic;
         source.Play();
-        source.DOFade(1, 2);
+        source.DOFade(1 * volumeMod, 2);
     }
 
     public static void StopMusic() {
@@ -53,11 +55,17 @@ public class AudioManager : MonoBehaviour
 
     public static void PlaySound(AudioClip sound, float volume, float pitch)
     {
-        GameObject soundObject = Instantiate(new GameObject());
+        GameObject soundObject = new GameObject();
+        soundObject.tag = "Sound";
         AudioSource source = soundObject.AddComponent<AudioSource>();
         source.clip = sound;
+        source.name = sound.name;
         source.volume = volume;
         source.pitch = pitch;
+        if (pitch < 0)
+        {
+            source.time = source.clip.length - 0.05f;
+        }
         source.Play();
         Destroy(soundObject, sound.length + 0.5f);
     }
