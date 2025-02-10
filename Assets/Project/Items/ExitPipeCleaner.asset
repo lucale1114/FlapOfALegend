@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4672a660445f2c42ac28b5c1d829147, type: 3}
+  m_Name: ExitPipeCleaner
+  m_EditorClassIdentifier: 
+  ItemName: Exit Pipe Cleaner
+  Description: Makes the exit pipe sanitary and enjoyable to go through!
+  Positives:
+  - 1+ wing when you clear a level
+  Icon: {fileID: 0}
+  Active: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameVariables : MonoBehaviour
@@ -12,6 +13,11 @@ public class GameVariables : MonoBehaviour
     public static int Chapter = 1;
     public static FlappyStage LevelPicked;
     public static bool PressedStart = true;
+    public static string ConsumableSlot1;
+    public static string ConsumableSlot2;
+    public static string ConsumableSlot3;
+    public static List<FlappyItem> Inventory = new List<FlappyItem>();
+
 
     public AudioClip ButtonClickSound;
 
@@ -35,6 +41,24 @@ public class GameVariables : MonoBehaviour
     public void SetHealth(int health)
     {
         Health = health;
+    }
+
+    public void AddItemToInventory(FlappyItem item)
+    {
+        Inventory.Add(item);
+    }
+
+    public List<FlappyItem> GetInventory()
+    {
+        return Inventory;
+    }
+
+    public bool ConfirmItemExists(string term)
+    {
+        foreach (FlappyItem item in Inventory) { 
+            if (item.name == term) return true;
+        }
+        return false;
     }
 
     public int GetContainers()

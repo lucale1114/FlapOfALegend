@@ -15,15 +15,21 @@ public class PipeExit : MonoBehaviour
     private AudioClip wallBreakSound;
     [SerializeField]
     private AudioClip pipeEnterNoise;
+    private bool cleaner;
 
     private void Awake()
     {
         brickbreak = transform.parent.Find("Brickbreak").GetComponent<ParticleSystem>();
         health = FindObjectOfType<BirdHealth>();
+        cleaner = GameVariables.Instance.ConfirmItemExists("Exit Pipe Cleaner");
     }
 
     GameObject VictoryTouch(Collider2D collision)
     {
+        if (cleaner)
+        {
+            FindObjectOfType<BirdHealth>().AddHealth(1);
+        }
         GameObject bird = collision.gameObject;
         bird.GetComponent<BirdMovement>().enabled = false;
         bird.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;

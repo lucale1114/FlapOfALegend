@@ -43,7 +43,6 @@ public class PipeMoving : MonoBehaviour
     {
         transform.DOMove(pos, slowSpeed).SetEase(Ease.Linear).OnComplete(() =>
         {
-            print("go");
             if (pos == posUp)
             {
                 MoveTo(posDown);

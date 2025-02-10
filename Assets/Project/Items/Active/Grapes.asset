@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4672a660445f2c42ac28b5c1d829147, type: 3}
+  m_Name: Grapes
+  m_EditorClassIdentifier: 
+  ItemName: Grapes
+  Description: Got any grapes?
+  Positives:
+  - Fills all wing containers to full
+  Icon: {fileID: 21300000, guid: ee9e8644132715445a0c4cc41acec95b, type: 3}
+  Active: 0
