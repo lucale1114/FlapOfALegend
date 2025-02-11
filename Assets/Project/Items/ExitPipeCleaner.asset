@@ -16,5 +16,5 @@ MonoBehaviour:
   Description: Makes the exit pipe sanitary and enjoyable to go through!
   Positives:
   - 1+ wing when you clear a level
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 01abe0ded67546c43a527bdd17fae0cf, type: 3}
   Active: 0
