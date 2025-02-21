@@ -37,6 +37,7 @@ public class GameInterface : MonoBehaviour
 
     private void Awake()
     {
+        
         health = FindObjectOfType<BirdHealth>();
         flash = GameObject.Find("Flash").GetComponent<Image>();
         deathscreen = GameObject.Find("DeathScreen").transform;
@@ -52,8 +53,13 @@ public class GameInterface : MonoBehaviour
         pauseScreen.SetActive(false);
         transSaved = trans.position;
         deathscreen.transform.position -= new Vector3(0, 2000, 0);
+        trans.DOMove(trans.position + new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
+        if (GameVariables.Instance.GetSpecialLevel() == "Shop")
+        {
+            return;
+        }
         DisplayHearts();
-        health.TakeHit += () =>
+        health.HealthChanged += () =>
         {
             DisplayHearts();
         };
@@ -61,7 +67,6 @@ public class GameInterface : MonoBehaviour
         {
             Invoke("LostGame", 2);
         };
-        trans.DOMove(trans.position + new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         Invoke("FindDelay", 1);
     }
 

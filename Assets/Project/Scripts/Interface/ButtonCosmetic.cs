@@ -7,6 +7,7 @@ public class ButtonCosmetic : MonoBehaviour
 {
     Transform text;
     Vector3 defaultP;
+    [SerializeField]
     private float offset = -20;
 
     private void Awake()

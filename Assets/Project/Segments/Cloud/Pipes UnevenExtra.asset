@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73376a4bc03125a4eb467afa6a08ee8f, type: 3}
+  m_Name: Pipes UnevenExtra
+  m_EditorClassIdentifier: 
+  segment: {fileID: 5713766202585619121, guid: 74b48c2e6b34be346abb194282dd5fc4, type: 3}
+  distanceRight: 5
+  distanceLeft: 2
+  commonFactor: 10
+  randomY: 1

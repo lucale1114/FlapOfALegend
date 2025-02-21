@@ -39,18 +39,23 @@ public class PipeMoving : MonoBehaviour
         }
     }
 
+    IEnumerator Delay(Vector3 pos)
+    {
+        yield return new WaitForSeconds(0.15f);
+        if (pos == posUp)
+        {
+            MoveTo(posDown);
+        }
+        else
+        {
+            MoveTo(posUp);
+        }
+    }
     void MoveTo(Vector3 pos)
     {
-        transform.DOMove(pos, slowSpeed).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOMove(pos, slowSpeed).SetEase(Ease.InOutSine).OnComplete(() =>
         {
-            if (pos == posUp)
-            {
-                MoveTo(posDown);
-            }
-            else
-            {
-                MoveTo(posUp);
-            }
+            StartCoroutine(Delay(pos));
         });
     }
 }

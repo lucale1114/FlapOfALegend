@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73376a4bc03125a4eb467afa6a08ee8f, type: 3}
-  m_Name: MovingPipes
+  m_Name: PipesBeach2
   m_EditorClassIdentifier: 
-  segment: {fileID: 5713766202585619121, guid: 9ae89d2e37f1c1542884599400ab534e, type: 3}
+  segment: {fileID: 5713766202585619121, guid: 2216125be807f9340a54013c75fe0b66, type: 3}
   distanceRight: 4
-  distanceLeft: 1
-  commonFactor: 100
+  distanceLeft: 3
+  commonFactor: 20
   randomY: 1

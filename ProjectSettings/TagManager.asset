@@ -9,6 +9,8 @@ TagManager:
   - Main
   - Useless
   - Sound
+  - Slots
+  - Aggregation
   layers:
   - Default
   - TransparentFX

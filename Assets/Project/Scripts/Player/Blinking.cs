@@ -12,6 +12,7 @@ public class Blinking : MonoBehaviour
     private ParticleSystem sleepParticle;
     private SpriteRenderer eyes;
     private bool dead;
+    private float emissionRate;
 
     public bool Sleeping;
     public Sprite BlinkSprite;
@@ -43,6 +44,7 @@ public class Blinking : MonoBehaviour
             render.sprite = OpenEyesSprite;
             eyes.sprite = DeadEyeSprite;
         };
+        emissionRate = sleepParticle.emissionRate;
         if (Sleeping)
         {
             blinkAnimator.enabled = false;
@@ -62,7 +64,7 @@ public class Blinking : MonoBehaviour
         Invoke("UnHurt", 0.45f);
     }
 
-    public IEnumerator WakeUp()
+    public IEnumerator WakeUp(bool cosmetic)
     {
         sleepParticle.emissionRate = 0;
         for (int i = 0; i < 3; i++)
@@ -74,10 +76,22 @@ public class Blinking : MonoBehaviour
         }
         render.sprite = OpenEyesSprite;
         blinkAnimator.enabled = true;
-        yield return new WaitForSeconds(0.8f);
-        CanStart = true;
+        if (!cosmetic)
+        {
+            yield return new WaitForSeconds(0.8f);
+            CanStart = true;
+        }
     }
 
+    public void GoBackToSleep()
+    {
+        Sleeping = true;
+        sleepParticle.emissionRate = emissionRate;
+        blinkAnimator.enabled = false;
+        render.sprite = SleepSprite;
+        CanStart = false;
+    }
+    
     void BlinkAuto()
     {
         if (!hurt && !Sleeping)

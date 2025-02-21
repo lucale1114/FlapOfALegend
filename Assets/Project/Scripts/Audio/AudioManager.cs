@@ -69,4 +69,25 @@ public class AudioManager : MonoBehaviour
         source.Play();
         Destroy(soundObject, sound.length + 0.5f);
     }
+
+    public static void PlaySound(AudioClip sound, float volume, float pitch, bool loop)
+    {
+        GameObject soundObject = new GameObject();
+        soundObject.tag = "Sound";
+        AudioSource source = soundObject.AddComponent<AudioSource>();
+        source.clip = sound;
+        source.name = sound.name;
+        source.volume = volume;
+        source.pitch = pitch;
+        source.loop = true;
+        if (pitch < 0)
+        {
+            source.time = source.clip.length - 0.05f;
+        }
+        source.Play();
+        if (!loop)
+        {
+            Destroy(soundObject, sound.length + 0.5f);
+        }
+    }
 }

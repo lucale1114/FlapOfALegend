@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 public class NodePoint : MonoBehaviour
 {
@@ -18,9 +19,15 @@ public class NodePoint : MonoBehaviour
     public List<NodePoint> neighbors;
     public bool Empty;
     public bool Completed;
+    public SpecialStage special = SpecialStage.None;
+    public int shopIndex;
 
     private void OnMouseDown()
     {
+        if (EventSystem.current.currentSelectedGameObject != null)
+        {
+            return;
+        }
         if (!GameVariables.Instance.CanInteractSelect())
         {
             return;
@@ -47,6 +54,10 @@ public class NodePoint : MonoBehaviour
                 //nodeInterface.gameObject.SetActive(false);
             });
             return;
+        }
+        if (special == SpecialStage.Shop)
+        {
+            GameVariables.Instance.SetShopToLoad(GameVariables.Instance.GetShops()[shopIndex]);
         }
         selectionSprite.enabled = true;
         AudioManager.PlaySound(stageScript.NodeAppearSound, 0.5f, 0.7f);

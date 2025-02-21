@@ -16,6 +16,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
   - {fileID: 11400000, guid: e195705e0801eed439801338714ca24f, type: 2}
   - {fileID: 11400000, guid: d75b2a2298a10c843b88bc1c1bcfdf69, type: 2}
+  - {fileID: 11400000, guid: cc4f639cc6c1a694b9e4b2c19a2daeea, type: 2}
+  - {fileID: 11400000, guid: 4c807ec86a482b5499f9feadbf5034ca, type: 2}
+  - {fileID: 11400000, guid: 94c109155d902734ea55cc2c5e76a865, type: 2}
   levelName: Cloudvale
   description: Many have been here before you, but you came in a different condition!
   music: {fileID: 8300000, guid: af0400041788aef438f3f318aee40bdb, type: 3}

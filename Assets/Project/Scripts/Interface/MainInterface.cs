@@ -16,6 +16,8 @@ public class MainInterface : MonoBehaviour
     private Transform registerField;
     [SerializeField]
     private Transform trans;
+    private Transform bird;
+    private Transform cameraParent;
 
     private Vector3 loginFieldPos;
     private Vector3 loginFieldPosBack;
@@ -24,6 +26,13 @@ public class MainInterface : MonoBehaviour
     private Transform buttonLogin;
     private Transform buttonRegister;
     private Transform buttonSign;
+    private Transform buttonCosmetic;
+    private Transform buttonBack;
+    private Transform cosmetics;
+    
+    private Blinking blinking;
+
+    public bool InMenu;
 
     private void Awake()
     {
@@ -34,11 +43,23 @@ public class MainInterface : MonoBehaviour
         buttonLogin = GameObject.Find("ButtonLogin").transform;
         buttonRegister = GameObject.Find("ButtonRegister").transform;
         buttonSign = GameObject.Find("ButtonSignOut").transform;
+        buttonCosmetic = GameObject.Find("ButtonCustomize").transform;
+        buttonBack = GameObject.Find("ButtonBack").transform;
+        bird = GameObject.Find("BirdObject").transform;
+        cameraParent = Camera.main.transform.parent;
+        blinking = FindObjectOfType<Blinking>();
+        cosmetics = GameObject.Find("Cosmetics").transform;
     }
 
     private void Start()
     {
+        FindObjectOfType<BirdMovement>().EyesOpen += () =>
+        {
+            OtherButtonsAway(true);
+        };
         pauseButton.position -= new Vector3(1000, 0, 0);
+        buttonBack.position -= new Vector3(1000, 0, 0);
+        cosmetics.position -= new Vector3(0, 2000, 0);
         loginFieldPosBack = loginField.position + new Vector3(-2000, 0);
         loginFieldPos = loginField.position;
 
@@ -67,6 +88,40 @@ public class MainInterface : MonoBehaviour
         buttonSign.gameObject.SetActive(false);
     }
 
+    public void GoCosmetic()
+    {
+        InMenu = true;
+        OtherButtonsAway(false);
+        Camera.main.transform.parent = Camera.main.transform.parent.parent;
+        Camera.main.transform.DOMoveX(bird.transform.position.x, 1f);
+        Camera.main.transform.DOMoveY(bird.transform.position.y, 1f);
+        Camera.main.DOOrthoSize(2.5f, 0.5f);
+        cosmetics.DOMoveY(cosmetics.position.y + 2000, 1f);
+        StartCoroutine(blinking.WakeUp(true));
+    }
+
+    public void ButtonsBack()
+    {
+        InMenu = false;
+        Camera.main.transform.parent = cameraParent;
+        buttonBack.position -= new Vector3(1000, 0, 0);
+        Camera.main.DOOrthoSize(5, 1f);
+        Camera.main.transform.DOLocalMove(new Vector3(0, 0, -10), 0.5f);
+        blinking.GoBackToSleep();
+        buttonCosmetic.DOMoveX(buttonCosmetic.position.x + 1000, 1f);
+        cosmetics.DOMoveY(cosmetics.position.y - 2000, 1f);
+    }
+
+    private void OtherButtonsAway(bool wake)
+    {
+        Camera.main.transform.parent = cameraParent;
+        buttonCosmetic.DOMoveX(buttonCosmetic.position.x - 1000, 1f);
+        if (!wake)
+        {
+           buttonBack.position += new Vector3(1000, 0, 0);
+        }  
+    }
+
     private void Login()
     {
         FieldsBack();
@@ -74,6 +129,7 @@ public class MainInterface : MonoBehaviour
         buttonRegister.gameObject.SetActive(false);
         buttonSign.gameObject.SetActive(true);
     }
+
     public void FieldsBack()
     {
         loginField.DOMove(loginFieldPosBack, 1);

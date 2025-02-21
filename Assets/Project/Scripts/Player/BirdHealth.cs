@@ -9,13 +9,17 @@ using UnityEngine.UI;
 public class BirdHealth : MonoBehaviour
 {
     public event Action TakeHit;
+    public event Action HealthChanged;
     public event Action Died;
 
     public int Health;
     public int Containers;
 
     private bool iFrame;
-
+    [SerializeField]
+    private AudioClip healSound;
+    [SerializeField]
+    private AudioClip containerSound;
     IEnumerator FlashSprite(SpriteRenderer sprite)
     {
         float startFade = 0.6f;
@@ -56,11 +60,25 @@ public class BirdHealth : MonoBehaviour
 
     public bool AddHealth(int health)
     {
+        if (Health == Containers)
+        {
+            return false;
+        }
+        AudioManager.PlaySound(healSound, 0.7f, 1);
+        Health++;
+        HealthChanged?.Invoke();
         return true;
     }
 
     public bool AddHeartContainer(int health)
     {
+        if (Containers == 12)
+        {
+            return false;
+        }
+        AudioManager.PlaySound(containerSound, 1, 1);
+        Containers++;
+        HealthChanged?.Invoke();
         return true;
     }
 
@@ -81,6 +99,7 @@ public class BirdHealth : MonoBehaviour
 
         //GetComponent<Collider2D>().enabled = false;
         Health--;
+        HealthChanged?.Invoke();
         TakeHit?.Invoke();
         StartCoroutine(ScreenShake.ShakeScreen(1, 1.1f));
 

@@ -11,6 +11,7 @@ public class BirdMovement : MonoBehaviour
     readonly float TERMINAL_VELOCITY = -7;
 
     public event Action WokeUp;
+    public event Action EyesOpen;
     public Sprite GlideSprite;
     public float FloatPower;
     public float BirdSpeed;
@@ -23,6 +24,7 @@ public class BirdMovement : MonoBehaviour
     private Animator wingAnimator;
     private BirdHealth birdHealth;
     private Blinking blinking;
+    private MainInterface mainInterface;
     private bool died;
     private bool inStart;
     [SerializeField]
@@ -36,6 +38,7 @@ public class BirdMovement : MonoBehaviour
         blinking = FindObjectOfType<Blinking>();
         birdHealth = FindObjectOfType<BirdHealth>();
         wingAnimator = birdBase.transform.Find("Wings").GetComponent<Animator>();
+        mainInterface = FindObjectOfType<MainInterface>();
     }
 
     void Start()
@@ -94,6 +97,13 @@ public class BirdMovement : MonoBehaviour
             {
                 return;
             }
+            if (mainInterface)
+            {
+                if (mainInterface.InMenu)
+                {
+                    return;
+                }
+            }
             if (Sleeping)
             {
                 if (blinking.CanStart)
@@ -108,8 +118,9 @@ public class BirdMovement : MonoBehaviour
                 }
                 else if (!inStart)
                 {
+                    EyesOpen?.Invoke();
                     inStart = true;
-                    StartCoroutine(blinking.WakeUp());
+                    StartCoroutine(blinking.WakeUp(false));
                     Camera.main.transform.parent.DOMove(new Vector3(birdBase.transform.position.x + 1.2f, 0, -10), 1f);
                 }
             }

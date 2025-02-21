@@ -19,6 +19,8 @@ public class LevelGeneration : MonoBehaviour
     private bool IsMenu;
     [SerializeField]
     private FlappyStage ChosenStage;
+    [SerializeField]
+    private GameObject shopObject;
 
     private SpriteRenderer ground;
     private SpriteRenderer sky;
@@ -40,6 +42,11 @@ public class LevelGeneration : MonoBehaviour
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         }
+        if (GameVariables.Instance.GetSpecialLevel() == "Shop")
+        {
+            SetupShop();
+            return;
+        }
         if (GameVariables.Instance != null && !IsMenu)
         {
             print("set");
@@ -52,6 +59,34 @@ public class LevelGeneration : MonoBehaviour
         {
             StartCoroutine(MoveOut(bird.transform));
         }
+    }
+
+    void SetupShop()
+    {
+        sky = GameObject.Find("Sky").GetComponent<SpriteRenderer>();
+        ground = GameObject.Find("Ground").GetComponent<SpriteRenderer>();
+        wall = GameObject.Find("Brickwall11").GetComponent<SpriteRenderer>();
+        wallEnd = GameObject.Find("Brickwall22").GetComponent<SpriteRenderer>();
+
+        Destroy(wall.transform.parent.gameObject);
+        Destroy(ground.gameObject);
+        Destroy(bird);
+
+        print(shopObject);
+        GameObject newShop = Instantiate(shopObject);
+        GameObject.Find("Lives").SetActive(false);
+        GameObject.Find("ActiveItemTab").SetActive(false);
+
+        Transform heli = newShop.transform.Find("Chinook");
+        Transform fakeBird = newShop.transform.Find("Bird");
+        heli.DOMoveX(0.1f, 4);
+        fakeBird.DOMoveX(-0.15f, 3);
+        FindObjectOfType<Shop>().Leaving += () =>
+        {
+            heli.DOMoveX(-8, 5);
+            GameObject.Find("Helicopter").GetComponent<AudioSource>().DOFade(0, 2);
+            fakeBird.DOMoveX(5, 5);
+        };
     }
 
     IEnumerator MoveOut(Transform trans)
@@ -77,7 +112,16 @@ public class LevelGeneration : MonoBehaviour
         GameObject[] pipes = GameObject.FindGameObjectsWithTag("Pipe");
         foreach (var pipe in pipes)
         {
-            pipe.GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+            pipe.transform.GetChild(0).GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+            pipe.transform.GetChild(1).GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+            try
+            {
+                if (pipe.transform.GetChild(2))
+                {
+                    pipe.transform.GetChild(2).GetComponent<SpriteRenderer>().color = ChosenStage.pipeColor;
+                }
+            }
+            catch(System.Exception e) { };  
         }
 
         sky.sprite = ChosenStage.sky;
@@ -137,6 +181,7 @@ public class LevelGeneration : MonoBehaviour
 
     void CreateSegment(FlappySegment segment)
     {
+        pointer.position += new Vector3(segment.distanceLeft, 0, 0);
         GameObject segmentReal = Instantiate(segment.segment, pointer.position, segment.segment.transform.rotation);
         segmentReal.transform.SetParent(levelObject.transform);
         if (segment.randomY)

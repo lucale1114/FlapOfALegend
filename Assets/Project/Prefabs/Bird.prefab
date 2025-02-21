@@ -265,6 +265,7 @@ MonoBehaviour:
   FloatPower: 350
   BirdSpeed: 2.5
   Sleeping: 1
+  Knocked: 0
   flapSound: {fileID: 8300000, guid: bd5d7d15bcba4b642be8ee2694e59f5e, type: 3}
 --- !u!50 &9077581857098357723
 Rigidbody2D:
@@ -352,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Health: 3
   Containers: 3
+  healSound: {fileID: 8300000, guid: d4ee19b48c474b248944f30679660e60, type: 3}
+  containerSound: {fileID: 8300000, guid: d62337569cee11e47bc2a1a5f76123b1, type: 3}
 --- !u!1 &4629375074593566242
 GameObject:
   m_ObjectHideFlags: 0

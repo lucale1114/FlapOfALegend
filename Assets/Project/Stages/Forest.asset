@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   segments:
   - {fileID: 11400000, guid: 99d03522f8fd4464386bc6cfe0bb00e9, type: 2}
+  - {fileID: 11400000, guid: 9d26abac0a3797a42aa899b94f8a3a7e, type: 2}
+  - {fileID: 11400000, guid: bbf80c50ba860bd4b81aee0deea8579c, type: 2}
+  - {fileID: 11400000, guid: eb2d1fdb0a0c8aa49bed8ab12b046dd1, type: 2}
+  - {fileID: 11400000, guid: 29807cc8238c15c4baec168922685b6a, type: 2}
+  - {fileID: 11400000, guid: 043ef476baff4c741a5f60daa93d5d44, type: 2}
   levelName: Pipest
   description: A lot of pipes grow here, beware!
   music: {fileID: 8300000, guid: 791e8a7ee2fd62e4fb6450b907cff2c7, type: 3}
   chapter: 1
-  length: 1
+  length: 30
   cloud: {fileID: 7783319122823235376, guid: 2d4f001887a1b1c4d80d38113e3ac737, type: 3}
   backgroundElements:
   - {fileID: 3432247084578059946, guid: 070a8fa817f2c094ebcb149dbb24e1c6, type: 3}

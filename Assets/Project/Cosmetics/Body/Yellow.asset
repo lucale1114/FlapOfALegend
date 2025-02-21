@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5019bc424163cd14bbd686b4eb889c75, type: 3}
+  m_Name: Yellow
+  m_EditorClassIdentifier: 
+  itemName: Classic
+  iconSprite: {fileID: 21300000, guid: 86d6a20fac0f54f49b7d1d095753de6e, type: 3}
+  animation: {fileID: 7400000, guid: d8443cc06f0d978439b15c9d3d855cd0, type: 2}
+  blinkSprite: {fileID: 21300000, guid: 081f4726ad4eaf94886628e6540b2e5d, type: 3}
+  openEyes: {fileID: 21300000, guid: ea30b0dd0d1585549bb34d6fe8dca3d2, type: 3}
+  sleepSprite: {fileID: 21300000, guid: f7808caef43e64d4aa49b8405beb5df6, type: 3}

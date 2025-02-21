@@ -4,6 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
+using TMPro;
+
+public enum SpecialStage {
+    None,
+    Shop,
+    Sleep,
+}
 
 public class SelectionStage : MonoBehaviour
 {
@@ -14,12 +22,17 @@ public class SelectionStage : MonoBehaviour
     private StageList stageList;
     [SerializeField]
     private AudioClip[] music;
+    [SerializeField]
+    private FlappyStage shopStage;
     private List<FlappyStage> alreadyUsed = new List<FlappyStage>();
     private Pathfinding.Graph graph;
     private Vector3 transPos;
     private GameObject transCircle;
     private bool starting;
+    private TextMeshProUGUI coinsAmount;
 
+    public event Action StartingNew;
+    public event Action ClearedLevel;
     public AudioClip Beep;
     public AudioClip NodeAppearSound;
     public List<GameObject> everything;
@@ -35,15 +48,17 @@ public class SelectionStage : MonoBehaviour
         trans = GameObject.Find("Transition").transform;
         nodeToGenerateOn = GameObject.Find("StartNode");
         graph = FindObjectOfType<Pathfinding.Graph>();
+        coinsAmount = GameObject.Find("CoinsAmount").GetComponent<TextMeshProUGUI>();
     }
 
     void Start()
     {
         transPos = trans.position;
+        coinsAmount.text = GameVariables.Instance.GetCoins() + "x";
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         GenerateNextNode();
         FindObjectOfType<AudioManager>().SetAudioSource();
-        AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
+        AudioManager.LevelMusic = music[UnityEngine.Random.Range(0, music.Length)];
         DisplayHearts();
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
     }
@@ -53,7 +68,7 @@ public class SelectionStage : MonoBehaviour
         alreadyUsed.Clear();
         nodeToGenerateOn.GetComponent<NodePoint>().Completed = true;
 
-        GameObject newNode = Instantiate(nodes[Random.Range(0, nodes.Length)]);
+        GameObject newNode = Instantiate(nodes[UnityEngine.Random.Range(0, nodes.Length)]);
         Vector3 normalPos = nodeToGenerateOn.transform.position + new Vector3(1.5f, 0);
         newNode.transform.position = normalPos + new Vector3(0, 50);
         newNode.transform.DOMove(normalPos, 2.5f).OnComplete(() => {
@@ -70,12 +85,18 @@ public class SelectionStage : MonoBehaviour
                 continue;
             }
             NodePoint nodeScript = item.GetComponent<NodePoint>();
+            if (nodeScript.special == SpecialStage.Shop)
+            {
+                nodeScript.shopIndex = GameVariables.Instance.GetShops().Count;
+                GameVariables.Instance.GenerateAShop();
+                nodeScript.StartNode(shopStage);
+            }
             graph.nodes.Add(item.GetComponent<Pathfinding.Node>());
             if (item.CompareTag("Main"))
             {
                 startNode = item;
             }
-            if (!nodeScript.Empty)
+            if (!nodeScript.Empty && nodeScript.special == SpecialStage.None)
             {
                 nodeScript.StartNode(GrabRandomStage());
             }
@@ -104,12 +125,21 @@ public class SelectionStage : MonoBehaviour
 
     public void StartTheGame()
     {
+        GameVariables.Instance.SetSpecialLevel("");
+        if (levelToPlay.levelName == "Flappycopter")
+        {
+            GameVariables.Instance.SetSpecialLevel("Shop");
+        }
         GameVariables.Instance.SetInteractSelect(false);
         GameObject.Find("Lives").GetComponent<CanvasGroup>().DOFade(0, 0.5f);
+        GameObject.Find("Coin").GetComponent<Image>().DOFade(0, 0.5f);
+        StartingNew?.Invoke();
+        coinsAmount.DOFade(0, 0.5f);
         if (starting)
         {
             return;
         }
+
         AudioManager.SimpleFadeOut();
 
         //transCircle.transform.position = GameObject.Find("SelectionBird").transform.position;
@@ -156,16 +186,23 @@ public class SelectionStage : MonoBehaviour
     public void LevelCleared()
     {
         GameVariables.Instance.SetInteractSelect(false);
+        coinsAmount.text = GameVariables.Instance.GetCoins() + "x";
         SwitchScene(true);
         starting = false;
         GameObject.Find("Circle").transform.localScale = new Vector3(3.2f, 2.75f, 1.35f);
         trans.position = transPos;
         GameObject.Find("InfoFrame").transform.position -= new Vector3(100, 0);
-        AudioManager.LevelMusic = music[Random.Range(0, music.Length)];
+        AudioManager.LevelMusic = music[UnityEngine.Random.Range(0, music.Length)];
         GameObject.FindGameObjectWithTag("Useless").GetComponent<AudioManager>().SetAudioSource();
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
-        Invoke("SpawnNext", 2);
+        ClearedLevel?.Invoke();
+        if (GameVariables.Instance.GetSpecialLevel() == "")
+        {
+            Invoke("SpawnNext", 2);
+            return;
+        }
+        GameVariables.Instance.SetInteractSelect(true);
     }
 
     void SwitchScene(bool state)
@@ -197,7 +234,7 @@ public class SelectionStage : MonoBehaviour
         FlappyStage flappyStage = null;
         while (flappyStage == null)
         {
-            FlappyStage selected = stageList.stages[Random.Range(0, stageList.stages.Length)];
+            FlappyStage selected = stageList.stages[UnityEngine.Random.Range(0, stageList.stages.Length)];
             if (selected.chapter == chapter)
             {
                 foreach (FlappyStage checkUsed in alreadyUsed)
@@ -216,11 +253,5 @@ public class SelectionStage : MonoBehaviour
             }
         }
         return flappyStage;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

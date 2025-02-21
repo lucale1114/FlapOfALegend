@@ -18,7 +18,7 @@ MonoBehaviour:
   description: 
   music: {fileID: 8300000, guid: 61262c0c1a2854b4ab630b52ea8c5de2, type: 3}
   chapter: 0
-  length: 5
+  length: 10
   cloud: {fileID: 7783319122823235376, guid: 2d4f001887a1b1c4d80d38113e3ac737, type: 3}
   backgroundElements: []
   sky: {fileID: 0}
