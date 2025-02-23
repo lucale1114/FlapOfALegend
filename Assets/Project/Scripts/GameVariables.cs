@@ -25,6 +25,12 @@ public class GameVariables : MonoBehaviour
     public static FlappyHat Hat;
     public static FlappyBeak Beak;
 
+    public static List<FlappyWings> WingsInv = new List<FlappyWings>();
+    public static List<FlappyBody> BodyInv = new List<FlappyBody>();
+    public static List<FlappyBeak> BeakInv = new List<FlappyBeak>();
+    public static List<FlappyEyes> EyesInv = new List<FlappyEyes>();
+    public static List<FlappyHat> HatInv = new List<FlappyHat>();
+
     public ItemList ItemList;
     public AudioClip ButtonClickSound;
 
@@ -233,4 +239,56 @@ public class GameVariables : MonoBehaviour
     {
         Wings = wings;
     }
+
+    public List<FlappyWings> GetWingList()
+    {
+        return WingsInv;
+    }
+
+    public void AddWings(FlappyWings newWing)
+    {
+        WingsInv.Add(newWing);
+    }
+
+    public List<FlappyBody> GetBodyList()
+    {
+        return BodyInv;
+    }
+
+    public void AddBody(FlappyBody newBody)
+    {
+        BodyInv.Add(newBody);
+    }
+
+    public List<FlappyBeak> GetBeakList()
+    {
+        return BeakInv;
+    }
+
+    public void AddBeak(FlappyBeak newBeak)
+    {
+        BeakInv.Add(newBeak);
+    }
+
+    public List<FlappyEyes> GetEyesList()
+    {
+        return EyesInv;
+    }
+
+    public void AddEyes(FlappyEyes newEyes)
+    {
+        EyesInv.Add(newEyes);
+    }
+
+    public List<FlappyHat> GetHatList()
+    {
+        return HatInv;
+    }
+
+    public void AddHat(FlappyHat newHat)
+    {
+        HatInv.Add(newHat);
+    }
+
+
 }

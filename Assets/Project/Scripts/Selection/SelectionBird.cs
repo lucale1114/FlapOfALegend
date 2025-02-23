@@ -9,6 +9,9 @@ public class SelectionBird : MonoBehaviour
     Animator blinkAnimator;
     Animator wingAnimator;
 
+    private string animationNameB;
+    private string animationNameW;
+
     private void Awake()
     {
         bird = transform;
@@ -20,7 +23,19 @@ public class SelectionBird : MonoBehaviour
     {
         //transform.localPosition -= new Vector3(0.12f, 0);
         FloatUp();
+        
+        
+    }
+
+    public void SetAnimationNameB(string anim)
+    {
+        animationNameB = anim;
         InvokeRepeating("Blink", 2, 3);
+    }
+
+    public void SetAnimationNameW(string anim)
+    {
+        animationNameW = anim;
         InvokeRepeating("Wing", 1, 1);
     }
 
@@ -38,7 +53,7 @@ public class SelectionBird : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            blinkAnimator.Play("Blink1", 0, 0);
+            blinkAnimator.Play(animationNameB, 0, 0);
         }
     }
 
@@ -46,7 +61,7 @@ public class SelectionBird : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            wingAnimator.Play("Wings1", 0, 0);
+            wingAnimator.Play(animationNameW, 0, 0);
         }
     }
 }

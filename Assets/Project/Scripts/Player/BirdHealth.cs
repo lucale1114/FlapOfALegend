@@ -20,6 +20,7 @@ public class BirdHealth : MonoBehaviour
     private AudioClip healSound;
     [SerializeField]
     private AudioClip containerSound;
+
     IEnumerator FlashSprite(SpriteRenderer sprite)
     {
         float startFade = 0.6f;

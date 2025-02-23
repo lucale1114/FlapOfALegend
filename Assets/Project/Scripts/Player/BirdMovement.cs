@@ -24,6 +24,7 @@ public class BirdMovement : MonoBehaviour
     private Animator wingAnimator;
     private BirdHealth birdHealth;
     private Blinking blinking;
+    private string wingsAnimation;
     private MainInterface mainInterface;
     private bool died;
     private bool inStart;
@@ -61,6 +62,12 @@ public class BirdMovement : MonoBehaviour
         };
     }
 
+    public void SetWingsAnimation(string wings)
+    {
+        wingsAnimation = wings;
+        wingAnimator.Play(wingsAnimation, 0, 0);
+    }
+
     private void Death()
     {
         BirdSpeed = 0;
@@ -81,7 +88,7 @@ public class BirdMovement : MonoBehaviour
             birdBase.transform.DORotate(new Vector3(0, 0, 20), 0.1f);
         }
         rb2d.velocity = new Vector3(rb2d.velocity.x, 0);
-        wingAnimator.Play("Wings1", 0, 0);
+        wingAnimator.Play(wingsAnimation, 0, 0);
         AudioManager.PlaySound(flapSound, 1, 1);
         rb2d.AddForce(new Vector3(0, FloatPower, 0));
     }

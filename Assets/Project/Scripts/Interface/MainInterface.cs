@@ -18,7 +18,6 @@ public class MainInterface : MonoBehaviour
     private Transform trans;
     private Transform bird;
     private Transform cameraParent;
-
     private Vector3 loginFieldPos;
     private Vector3 loginFieldPosBack;
 
@@ -29,8 +28,19 @@ public class MainInterface : MonoBehaviour
     private Transform buttonCosmetic;
     private Transform buttonBack;
     private Transform cosmetics;
-    
+    private Transform selectionSlot;
+
+    private Transform wingSlot;
+    private Transform beakSlot;
+    private Transform eyesSlot;
+    private Transform bodySlot;
+    private Transform hatSlot;
+    private Vector3 bringSlotPos;
     private Blinking blinking;
+    private Transform cSlot;
+    private Cosmetics cosmeticsScript;
+
+    private bool canPress = true;
 
     public bool InMenu;
 
@@ -45,12 +55,25 @@ public class MainInterface : MonoBehaviour
         buttonSign = GameObject.Find("ButtonSignOut").transform;
         buttonCosmetic = GameObject.Find("ButtonCustomize").transform;
         buttonBack = GameObject.Find("ButtonBack").transform;
+        cosmeticsScript = FindObjectOfType<Cosmetics>();
         bird = GameObject.Find("BirdObject").transform;
         cameraParent = Camera.main.transform.parent;
         blinking = FindObjectOfType<Blinking>();
         cosmetics = GameObject.Find("Cosmetics").transform;
+        wingSlot = GameObject.Find("SlotWings").transform;
+        bodySlot = GameObject.Find("SlotBody").transform;
+        eyesSlot = GameObject.Find("SlotEyes").transform;
+        hatSlot = GameObject.Find("SlotHat").transform;
+        beakSlot = GameObject.Find("SlotBeak").transform;
+        selectionSlot = GameObject.Find("ItemSlots").transform;
+        cSlot = GameObject.Find("CSlot").transform;
+        bringSlotPos = selectionSlot.transform.position;
     }
 
+    private void CanPress()
+    {
+        canPress = true;
+    }
     private void Start()
     {
         FindObjectOfType<BirdMovement>().EyesOpen += () =>
@@ -59,9 +82,11 @@ public class MainInterface : MonoBehaviour
         };
         pauseButton.position -= new Vector3(1000, 0, 0);
         buttonBack.position -= new Vector3(1000, 0, 0);
+        selectionSlot.position -= new Vector3(2000, 0, 0);
         cosmetics.position -= new Vector3(0, 2000, 0);
         loginFieldPosBack = loginField.position + new Vector3(-2000, 0);
         loginFieldPos = loginField.position;
+        cSlot.gameObject.SetActive(false);
 
         loginField.position = loginFieldPosBack;
         registerField.position += loginFieldPosBack;
@@ -75,7 +100,7 @@ public class MainInterface : MonoBehaviour
             healthBar.GetComponent<CanvasGroup>().DOFade(1, 2);
             pauseButton.DOMoveX(pauseButton.position.x + 1000, 2);
         };
-        
+
         fbLogin.LoggedIn += () => {
             Login();
         };
@@ -86,10 +111,136 @@ public class MainInterface : MonoBehaviour
         buttonRegister.GetComponent<Button>().onClick.AddListener(delegate { BringField(registerField, false); });
         buttonSign.GetComponent<Button>().onClick.AddListener(delegate { buttonLogin.gameObject.SetActive(true); buttonRegister.gameObject.SetActive(true); });
         buttonSign.gameObject.SetActive(false);
+        Invoke("DelaySure", 1);
     }
+
+    private void DelaySure()
+    {
+        LoadItemIcons();
+        wingSlot.GetComponent<Button>().onClick.AddListener(delegate { BringUpSlots(GameVariables.Instance.GetWings()); });
+        beakSlot.GetComponent<Button>().onClick.AddListener(delegate { BringUpSlots(GameVariables.Instance.GetBeak()); });
+        eyesSlot.GetComponent<Button>().onClick.AddListener(delegate { BringUpSlots(GameVariables.Instance.GetEyes()); });
+        hatSlot.GetComponent<Button>().onClick.AddListener(delegate { BringUpSlots(GameVariables.Instance.GetHat()); });
+        bodySlot.GetComponent<Button>().onClick.AddListener(delegate { BringUpSlots(GameVariables.Instance.GetBody()); });
+    }
+
+    private void LoadItemIcons()
+    {
+        wingSlot.GetChild(0).GetComponent<Image>().sprite = GameVariables.Instance.GetWings().iconSprite;
+        bodySlot.GetChild(0).GetComponent<Image>().sprite = GameVariables.Instance.GetBody().iconSprite;
+        eyesSlot.GetChild(0).GetComponent<Image>().sprite = GameVariables.Instance.GetEyes().iconSprite;
+        beakSlot.GetChild(0).GetComponent<Image>().sprite = GameVariables.Instance.GetBeak().iconSprite;
+
+        if (GameVariables.Instance.GetHat() != null)
+        {
+            hatSlot.GetChild(0).GetComponent<Image>().enabled = true;
+            hatSlot.GetChild(0).GetComponent<Image>().sprite = GameVariables.Instance.GetHat().iconSprite;
+        }
+        else
+        {
+            hatSlot.GetChild(0).GetComponent<Image>().enabled = false;
+        }
+    }
+
+    private void BringUpSlots(Object picked)
+    {
+        foreach (Transform i in cSlot.parent)
+        {
+            if (i.name == "New")
+            {
+                Destroy(i.gameObject);
+            }
+        }
+        selectionSlot.DOMove(bringSlotPos, 0.5f);
+        switch (picked)
+        {
+            case FlappyWings t1:
+                foreach (var item in GameVariables.Instance.GetWingList())
+                {
+                    GameObject newSlot = Instantiate(cSlot.gameObject, cSlot.parent);
+                    newSlot.name = "New";
+                    newSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.iconSprite;
+                    newSlot.GetComponent<Button>().onClick.AddListener(delegate { EquipNewItem(item); });
+                    newSlot.SetActive(true);
+                }
+                break;
+            case FlappyBeak t2:
+                foreach (var item in GameVariables.Instance.GetBeakList())
+                {
+                    GameObject newSlot = Instantiate(cSlot.gameObject, cSlot.parent);
+                    newSlot.name = "New";
+                    newSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.iconSprite;
+                    newSlot.GetComponent<Button>().onClick.AddListener(delegate { EquipNewItem(item); });
+                    newSlot.SetActive(true);
+                }
+                break;
+            case FlappyEyes t3:
+                foreach (var item in GameVariables.Instance.GetEyesList())
+                {
+                    GameObject newSlot = Instantiate(cSlot.gameObject, cSlot.parent);
+                    newSlot.name = "New";
+                    newSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.iconSprite;
+                    newSlot.GetComponent<Button>().onClick.AddListener(delegate { EquipNewItem(item); });
+                    newSlot.SetActive(true);
+                }
+                break;
+            case FlappyHat t4:
+                foreach (var item in GameVariables.Instance.GetHatList())
+                {
+                    GameObject newSlot = Instantiate(cSlot.gameObject, cSlot.parent);
+                    newSlot.name = "New";
+                    newSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.iconSprite;
+                    newSlot.GetComponent<Button>().onClick.AddListener(delegate { EquipNewItem(item); });
+                    newSlot.SetActive(true);
+                }
+                break;
+            case FlappyBody t5:
+                foreach (var item in GameVariables.Instance.GetBodyList())
+                {
+                    GameObject newSlot = Instantiate(cSlot.gameObject, cSlot.parent);
+                    newSlot.name = "New";
+                    newSlot.transform.GetChild(0).GetComponent<Image>().sprite = item.iconSprite;
+                    newSlot.GetComponent<Button>().onClick.AddListener(delegate { EquipNewItem(item); });
+                    newSlot.SetActive(true);
+                }
+                break;
+        }
+    }
+
+    private void EquipNewItem(Object newCos)
+    {
+        switch (newCos)
+        {
+            case FlappyWings t1:
+                GameVariables.Instance.SetWings((FlappyWings)newCos);
+                break;
+            case FlappyBeak t1:
+                GameVariables.Instance.SetBeak((FlappyBeak)newCos);
+                break;
+            case FlappyEyes t1:
+                GameVariables.Instance.SetEyes((FlappyEyes)newCos);
+                break;
+            case FlappyBody t1:
+                GameVariables.Instance.SetBody((FlappyBody)newCos);
+                break;
+            case FlappyHat t1:
+                GameVariables.Instance.SetHat((FlappyHat)newCos);
+                break;
+        }
+        LoadItemIcons();
+        cosmeticsScript.DressUpBirdGame();
+        cosmeticsScript.DressUpUI();
+    }
+
 
     public void GoCosmetic()
     {
+        if (!canPress)
+        {
+            return;
+        }
+        canPress = false;
+        Invoke("CanPress", 1.05f);
         InMenu = true;
         OtherButtonsAway(false);
         Camera.main.transform.parent = Camera.main.transform.parent.parent;
@@ -102,6 +253,12 @@ public class MainInterface : MonoBehaviour
 
     public void ButtonsBack()
     {
+        if (!canPress)
+        {
+            return;
+        }
+        canPress = false;
+        Invoke("CanPress", 1.05f);
         InMenu = false;
         Camera.main.transform.parent = cameraParent;
         buttonBack.position -= new Vector3(1000, 0, 0);
@@ -109,6 +266,7 @@ public class MainInterface : MonoBehaviour
         Camera.main.transform.DOLocalMove(new Vector3(0, 0, -10), 0.5f);
         blinking.GoBackToSleep();
         buttonCosmetic.DOMoveX(buttonCosmetic.position.x + 1000, 1f);
+        selectionSlot.DOMove(selectionSlot.position - new Vector3(2000, 0, 0), 0.5f);
         cosmetics.DOMoveY(cosmetics.position.y - 2000, 1f);
     }
 

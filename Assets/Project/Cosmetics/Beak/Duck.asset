@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0331b3f5faa427144884794ea9f36775, type: 3}
-  m_Name: EyesNormal
+  m_Script: {fileID: 11500000, guid: f1bde2756c45e0f4fbe64bdb63eff472, type: 3}
+  m_Name: Duck
   m_EditorClassIdentifier: 
-  itemName: Dark Eyes
-  iconSprite: {fileID: 21300000, guid: 025619a581b322d4c875cbd102876875, type: 3}
-  deadEye: {fileID: 21300000, guid: 3c148b278e6b8444b96dca7150627e1a, type: 3}
+  itemName: Duck
+  iconSprite: {fileID: 21300000, guid: 884aa566fdc492d42a7cced020c9c56f, type: 3}

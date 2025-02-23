@@ -448,6 +448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8604992050386650959}
+  - component: {fileID: 4065691151938879287}
   m_Layer: 0
   m_Name: BirdObject
   m_TagString: Untagged
@@ -707,6 +708,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2233316127546147897, guid: 54cf03371f8da994fac673bf9e794b8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4065691151938879287}
     - targetCorrespondingSourceObject: {fileID: 1450308035656972473, guid: 54cf03371f8da994fac673bf9e794b8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7395798800443246730}
@@ -729,3 +733,16 @@ MonoBehaviour:
   SleepSprite: {fileID: 21300000, guid: f7808caef43e64d4aa49b8405beb5df6, type: 3}
   DeadEyeSprite: {fileID: 21300000, guid: 3c148b278e6b8444b96dca7150627e1a, type: 3}
   CanStart: 0
+--- !u!114 &4065691151938879287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4640782434330568600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcae219b4344d9c4faeda6b8cb203c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cosmeticList: {fileID: 11400000, guid: 5a8514c5d99d87746a3e217412e9e6e4, type: 2}

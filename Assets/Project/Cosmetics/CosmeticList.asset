@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21372148c6e35b342b1e943623010526, type: 3}
+  m_Name: CosmeticList
+  m_EditorClassIdentifier: 
+  bodies:
+  - {fileID: 11400000, guid: a9ad4be23d283ff44b9890aae67ca6ba, type: 2}
+  - {fileID: 11400000, guid: e424872d1eff8894c8c29a8979e157e6, type: 2}
+  hats: []
+  eyes:
+  - {fileID: 11400000, guid: 5b591738cb1e56b4e824719d3dc2c04b, type: 2}
+  - {fileID: 11400000, guid: dc4ac7a5b27b23f4aae814c6a501b10c, type: 2}
+  beaks:
+  - {fileID: 11400000, guid: 05f7e4ee43be25b4cad834ed6a1f893c, type: 2}
+  - {fileID: 11400000, guid: 3c37c6ba08adacb4aaa21a934c3a899e, type: 2}
+  wings:
+  - {fileID: 11400000, guid: 9a7e008bd610dea4da1c3f1396a6b0a2, type: 2}
+  - {fileID: 11400000, guid: f4a4a703f03ee3b4d9cf24d2c30ae2ad, type: 2}

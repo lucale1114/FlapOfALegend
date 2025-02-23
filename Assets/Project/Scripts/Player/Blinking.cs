@@ -13,6 +13,7 @@ public class Blinking : MonoBehaviour
     private SpriteRenderer eyes;
     private bool dead;
     private float emissionRate;
+    private string animationName;
 
     public bool Sleeping;
     public Sprite BlinkSprite;
@@ -44,12 +45,18 @@ public class Blinking : MonoBehaviour
             render.sprite = OpenEyesSprite;
             eyes.sprite = DeadEyeSprite;
         };
-        emissionRate = sleepParticle.emissionRate;
         if (Sleeping)
         {
+            emissionRate = sleepParticle.emissionRate;
             blinkAnimator.enabled = false;
             render.sprite = SleepSprite;
         }
+    }
+
+    public void SetAnimationName(string anim)
+    {
+        animationName = anim;
+        blinkAnimator.Play(animationName, 0, 0);
     }
 
     private void TakeAHit()
@@ -74,8 +81,10 @@ public class Blinking : MonoBehaviour
             render.sprite = SleepSprite;
             yield return new WaitForSeconds(0.1f);
         }
-        render.sprite = OpenEyesSprite;
         blinkAnimator.enabled = true;
+        yield return new WaitForSeconds(0.001f);
+        blinkAnimator.Play(animationName, 0, 0);
+
         if (!cosmetic)
         {
             yield return new WaitForSeconds(0.8f);
@@ -96,7 +105,7 @@ public class Blinking : MonoBehaviour
     {
         if (!hurt && !Sleeping)
         {
-            blinkAnimator.Play("Blink1", 0, 0);
+            blinkAnimator.Play(animationName, 0, 0);
         }
     }
 

@@ -4163,7 +4163,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.067, y: 0.8773719}
   m_AnchorMax: {x: 0.679, y: 0.9401156}
-  m_AnchoredPosition: {x: -3.493805, y: 4.974121}
+  m_AnchoredPosition: {x: -3.4938354, y: 4.974121}
   m_SizeDelta: {x: -106.117096, y: -3.2896118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1303935390
@@ -4316,6 +4316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849f828a125ff564b943b856c22306b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: -20
 --- !u!114 &1320281105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4654,7 +4655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.027, y: 0.058442242}
   m_AnchorMax: {x: 0.97400004, y: 0.52381414}
-  m_AnchoredPosition: {x: 1.7829895, y: -6.656494}
+  m_AnchoredPosition: {x: 1.78302, y: -6.656494}
   m_SizeDelta: {x: -5.9667015, y: 3.3688965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1399899654
@@ -4900,7 +4901,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64.35
+  m_fontSize: 69.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6327,6 +6328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3557269205084004634}
   - component: {fileID: 3557269205084004635}
+  - component: {fileID: 3557269205084004636}
   m_Layer: 0
   m_Name: BirdObject
   m_TagString: Untagged
@@ -6421,6 +6423,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b68c4613b2880446a08ffd6586bd764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3557269205084004636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 455348284572680653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcae219b4344d9c4faeda6b8cb203c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cosmeticList: {fileID: 11400000, guid: 5a8514c5d99d87746a3e217412e9e6e4, type: 2}
+  inSelection: 1
 --- !u!4 &3627284634319735280
 Transform:
   m_ObjectHideFlags: 0
@@ -7278,6 +7294,10 @@ PrefabInstance:
     - target: {fileID: 8605415463449283920, guid: f8c77b1c7454e7d46b5c8b849c474050, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9085532075256497739, guid: f8c77b1c7454e7d46b5c8b849c474050, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -5.7798004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

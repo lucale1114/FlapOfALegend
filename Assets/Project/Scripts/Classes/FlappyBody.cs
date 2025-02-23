@@ -6,6 +6,7 @@ using UnityEngine;
 public class FlappyBody : ScriptableObject
 {
     public string itemName;
+    public int itemId;
     public Sprite iconSprite;
     public AnimationClip animation;
     public Sprite blinkSprite;

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e0e74f8d3ca4344eabf95cd3353b5f2, type: 3}
-  m_Name: Wings
+  m_Name: WingsB
   m_EditorClassIdentifier: 
-  itemName: Wings
-  glide: {fileID: 21300000, guid: d61c1f2e126330a41ac8ab949a7a99ff, type: 3}
-  iconSprite: {fileID: 21300000, guid: 2094f8d8b32187f459f8d8f4d079e328, type: 3}
-  animation: {fileID: 7400000, guid: e1497e08a74ab2049ac15662a1e30554, type: 2}
-  animationUI: {fileID: 7400000, guid: 4e4c35f7433cebb4180469d1b57290f6, type: 2}
+  itemName: Blue Wings
+  itemId: 1
+  glide: {fileID: 21300000, guid: bea4a209b3516ac449994b2425be5d8e, type: 3}
+  iconSprite: {fileID: 21300000, guid: 81bd5f4ba55300e4b8ef192ea7daea75, type: 3}
+  animation: {fileID: 7400000, guid: f12ed2f57f54d0645987fba15e20f4c5, type: 2}
+  animationUI: {fileID: 7400000, guid: 95913a30ab2c01147b3986d27cc15eb1, type: 2}
