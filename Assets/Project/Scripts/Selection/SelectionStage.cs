@@ -24,12 +24,15 @@ public class SelectionStage : MonoBehaviour
     private AudioClip[] music;
     [SerializeField]
     private FlappyStage shopStage;
+    [SerializeField]
+    private Material[] materials;
     private List<FlappyStage> alreadyUsed = new List<FlappyStage>();
     private Pathfinding.Graph graph;
     private Vector3 transPos;
     private GameObject transCircle;
     private bool starting;
     private TextMeshProUGUI coinsAmount;
+    private GameObject[] backgroundObjects;
 
     public event Action StartingNew;
     public event Action ClearedLevel;
@@ -49,6 +52,7 @@ public class SelectionStage : MonoBehaviour
         nodeToGenerateOn = GameObject.Find("StartNode");
         graph = FindObjectOfType<Pathfinding.Graph>();
         coinsAmount = GameObject.Find("CoinsAmount").GetComponent<TextMeshProUGUI>();
+        backgroundObjects = GameObject.FindGameObjectsWithTag("Aggregation");
     }
 
     void Start()
@@ -60,6 +64,7 @@ public class SelectionStage : MonoBehaviour
         FindObjectOfType<AudioManager>().SetAudioSource();
         AudioManager.LevelMusic = music[UnityEngine.Random.Range(0, music.Length)];
         DisplayHearts();
+        SetBackgroundImage();
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
     }
 
@@ -114,6 +119,15 @@ public class SelectionStage : MonoBehaviour
 
         startNode.GetComponent<NodePoint>().neighbors.Add(oldNode);
         startNode.GetComponent<Pathfinding.Node>().m_Connections.Add(startNode.GetComponent<NodePoint>().neighbors[startNode.GetComponent<NodePoint>().neighbors.Count - 1].GetComponent<Pathfinding.Node>());
+    }
+
+    void SetBackgroundImage()
+    {
+        Material chosen = materials[UnityEngine.Random.Range(0, materials.Length)];
+        foreach (GameObject item in backgroundObjects)
+        {
+            item.GetComponent<MeshRenderer>().material = chosen;
+        }
     }
 
     public void SetSelectedNode(FlappyStage nodeSelected, GameObject newNode)
@@ -197,6 +211,7 @@ public class SelectionStage : MonoBehaviour
         StartCoroutine(AudioManager.FadeOutAndPlayNew());
         trans.DOMove(trans.position - new Vector3(1700, 0), 1.2f).SetEase(Ease.Linear);
         ClearedLevel?.Invoke();
+        SetBackgroundImage();
         if (GameVariables.Instance.GetSpecialLevel() == "")
         {
             Invoke("SpawnNext", 2);

@@ -26,6 +26,6 @@ MonoBehaviour:
   ground: {fileID: 21300000, guid: d1c1d5f627594c14da748c0af99f1606, type: 3}
   wallSprite: {fileID: 21300000, guid: 0da8654d18f55b340834141e85d55466, type: 3}
   wallEndSprite: {fileID: 21300000, guid: 235e1441bf81c7e4fa1d757d05c79c82, type: 3}
-  thumbnail: {fileID: 21300000, guid: 4a0625b7e318f8546824909e460683b2, type: 3}
+  thumbnail: {fileID: 21300000, guid: 8ee0c6540c4a85a4ba49036f63b04c32, type: 3}
   pipeColor: {r: 1, g: 0.8092965, b: 0.042452812, a: 1}
   brickbreakColor: {r: 1, g: 0.7180674, b: 0.3726415, a: 1}

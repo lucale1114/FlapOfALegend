@@ -49,6 +49,10 @@ public class ActiveItems : MonoBehaviour
         if (!isInSelection)
         {
             grossScript.enabled = true;
+            FindObjectOfType<BirdHealth>().Died += () =>
+            {
+                Destroy(gameObject);
+            };
         }
         slots = new Transform[3];
         slots[0] = slot1;
@@ -130,7 +134,6 @@ public class ActiveItems : MonoBehaviour
 
     private void OpenInfo(FlappyItem item)
     {
-        print(item);
         AudioManager.PlaySound(appear, 1, 1.3f);
         invDesc.text = item.Description;
         invTitle.text = item.ItemName;

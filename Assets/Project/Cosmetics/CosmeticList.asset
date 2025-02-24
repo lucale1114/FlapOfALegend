@@ -15,7 +15,9 @@ MonoBehaviour:
   bodies:
   - {fileID: 11400000, guid: a9ad4be23d283ff44b9890aae67ca6ba, type: 2}
   - {fileID: 11400000, guid: e424872d1eff8894c8c29a8979e157e6, type: 2}
-  hats: []
+  hats:
+  - {fileID: 11400000, guid: b74a633e75034424e84f3032cb6f26ea, type: 2}
+  - {fileID: 11400000, guid: f696495e81709644689f7edcb80a54ef, type: 2}
   eyes:
   - {fileID: 11400000, guid: 5b591738cb1e56b4e824719d3dc2c04b, type: 2}
   - {fileID: 11400000, guid: dc4ac7a5b27b23f4aae814c6a501b10c, type: 2}

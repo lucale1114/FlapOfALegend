@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0331b3f5faa427144884794ea9f36775, type: 3}
   m_Name: EyesNormal
   m_EditorClassIdentifier: 
-  itemName: Dark Eyes
+  itemName: Eyes
   iconSprite: {fileID: 21300000, guid: 025619a581b322d4c875cbd102876875, type: 3}
   deadEye: {fileID: 21300000, guid: 3c148b278e6b8444b96dca7150627e1a, type: 3}

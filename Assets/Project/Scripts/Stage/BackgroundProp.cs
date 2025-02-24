@@ -11,12 +11,19 @@ public class BackgroundProp : MonoBehaviour
     public bool Forced;
     public bool RandomSize;
     public bool RandomTransparency;
+    public bool MoveAuto;
     public Sprite[] Variations;
 
     void Awake()
     {
         render = GetComponent<SpriteRenderer>();
-        birdBody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out Rigidbody2D t))
+            {
+                birdBody = t;
+            }
+        }
     }
     private void Start()
     {
@@ -44,6 +51,12 @@ public class BackgroundProp : MonoBehaviour
     
     void FixedUpdate()
     {
-        transform.Translate(Vector3.left * ObjectMoveMultiplier * -birdBody.velocity.x * 0.7f * Time.deltaTime); 
+        if (birdBody)
+        {
+            transform.Translate(Vector3.left * ObjectMoveMultiplier * -birdBody.velocity.x * 0.7f * Time.deltaTime);
+        }
+        if (MoveAuto) { 
+            transform.Translate(Vector3.left * ObjectMoveMultiplier / 10 * Time.deltaTime); 
+        }
     }
 }

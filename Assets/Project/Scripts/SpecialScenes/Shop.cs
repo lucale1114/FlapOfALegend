@@ -44,6 +44,7 @@ public class Shop : MonoBehaviour
     private Transform slot1;
     private Transform slot2;
     private Transform slot3;
+    private Transform backButton;
     private bool picked;
     [SerializeField]
     private AudioClip shopMusic;
@@ -83,6 +84,7 @@ public class Shop : MonoBehaviour
         shopList = GameVariables.Instance.GetShopToLoad();
         trans = GameObject.Find("TransitionShop").transform;
         shopSlots = GameObject.FindGameObjectsWithTag("Slots");
+        backButton = GameObject.Find("ButtonBack").transform;
     }
 
     void Start()
@@ -101,6 +103,7 @@ public class Shop : MonoBehaviour
         coin.position += new Vector3(0, 2000);
         coinsAmount.transform.position += new Vector3(0, 2000);
         shopTab.position += new Vector3(1000, 0);
+        backButton.position += new Vector3(1500, 0);
         Invoke("StartMoving", 2);
         Refresh();
         slot1.GetComponent<Button>().onClick.AddListener(delegate { AddToActive(0); });
@@ -270,6 +273,7 @@ public class Shop : MonoBehaviour
         print("start");
         titleText.DOMove(titlePos, 2);
         coin.DOMove(coinPos, 2);
+        backButton.DOMoveX(backButton.position.x - 1500, 2);
         coinsAmount.transform.DOMove(coinPos2, 2);
         shopTab.DOMove(shopTabPos, 2);
     }

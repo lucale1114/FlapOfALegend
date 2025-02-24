@@ -98,8 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjectMoveMultiplier: 1.05
+  Forced: 0
   RandomSize: 1
   RandomTransparency: 1
+  MoveAuto: 1
   Variations:
   - {fileID: 21300000, guid: 22fb6e658e059be4790687d9d4204ac5, type: 3}
   - {fileID: 21300000, guid: cb56bf29425b8304d843ce704d8fd03c, type: 3}

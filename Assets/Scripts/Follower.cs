@@ -58,7 +58,7 @@ namespace Pathfinding
         IEnumerator FollowPath()
         {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.update += Update;
+            UnityEditor.EditorApplication.update += FixedUpdate;
 #endif
             var e = m_Path.nodes.GetEnumerator();
             while (e.MoveNext())
@@ -74,11 +74,11 @@ namespace Pathfinding
             m_Current = null;
             Moving = false;
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.update -= Update;
+            UnityEditor.EditorApplication.update -= FixedUpdate;
 #endif
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (m_Current != null)
             {
